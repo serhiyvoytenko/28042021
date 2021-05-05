@@ -11,11 +11,11 @@ services:
     image: nginx:1.17
     container_name: skillup_nginx
     ports:
-      - 8011:80
+      - 8888:80
     volumes:
       - ./:/var/www
       - ./docker/nginx/skillup.local.conf:/etc/nginx/conf.d/skillup.local.conf
-      - ./docker/nginx/chat.local.conf:/etc/nginx/conf.d/chat.local.conf
+      ##- ./docker/nginx/chat.local.conf:/etc/nginx/conf.d/chat.local.conf
     depends_on:
       - app
   db:
@@ -32,10 +32,3 @@ services:
       MYSQL_USER: skillup_user
       MYSQL_PASSWORD: skillup_pwd
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
-  phpmyadmin:
-    image: phpmyadmin
-    ports:
-      - 8012:80
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=skillup-pma.local
