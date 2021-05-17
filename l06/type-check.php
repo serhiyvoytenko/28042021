@@ -16,7 +16,7 @@ echo "He drank some $juices[0] juice." . PHP_EOL;
 echo "He drank some $juices[1] juice." . PHP_EOL;
 echo "He drank some $juices[koolaid1] juice." . PHP_EOL;
 
-class people
+class People
 {
     public string $john = "John Smith";
     public string $jane = "Jane Smith";
@@ -25,7 +25,7 @@ class people
     public string $smith = "Smith";
 }
 
-$people = new people();
+$people = new People();
 
 echo "$people->john drank some $juices[0] juice." . PHP_EOL;
 echo "$people->john then said hello to $people->jane." . PHP_EOL;
@@ -58,7 +58,7 @@ echo "Это работает: {$arr['key']}<br />";
 // Работает
 $arr[4][3] = 'test 4-3';
 echo "Это работает: {$arr[4][3]}";
-var_dump($arr);
+//var_dump($arr);
 
 // Это неверно по той же причине, что и $foo[bar] вне
 // строки. Другими словами, это по-прежнему будет работать,
@@ -108,7 +108,7 @@ $name = 'petya';
 $$name = 'vanya';
 
 echo "Это значение переменной по имени $name: {${$name}}<br />";
-function getName(){
+function getName():string{
        return 'name';
 }
 echo "Это значение переменной по имени, которое возвращает функция getName(): {${getName()}}<br />";
@@ -116,4 +116,12 @@ echo "Это значение переменной по имени, которо
 echo "Это значение переменной по имени, которое возвращает \$obj->getName(): {${$obj->getName()}}<br />";
 
 // Не работает, выводит: Это то, что возвращает getName(): {getName()}
-echo "Это то, что возвращает getName(): {getName()}";
+echo "Это то, что возвращает getName(): {getName()}<br />";
+
+
+$dima = 'dimasik';
+$$dima = 'vanya';
+echo $dimasik;
+echo '<pre>';
+print_r(get_defined_vars());
+echo '</pre>';
