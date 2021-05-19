@@ -121,7 +121,13 @@ echo "Это то, что возвращает getName(): {getName()}<br />";
 
 $dima = 'dimasik';
 $$dima = 'vanya';
-echo $dimasik;
-echo '<pre>';
-print_r(get_defined_vars());
-echo '</pre>';
+/** @var TYPE_NAME $dimasik */
+echo $dimasik.PHP_EOL;
+//echo '<pre>';
+//print_r(get_defined_vars());
+//echo '</pre>';
+//echo '<pre>';
+//print_r($GLOBALS);
+//echo '</pre>';
+var_dump($GLOBALS);
+echo $x=1+"1%";
