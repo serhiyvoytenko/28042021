@@ -37,17 +37,21 @@ $arr = array(
         'parent_id'=>3,
     ),
 );
-var_dump($arr);
+//var_dump($arr);
 
 function generateElemTree(&$treeElem,$parents_arr) {
     foreach($treeElem as $key=>$item) {
-        var_dump($key,$item);
         if(!isset($item['children'])) {
             $treeElem[$key]['children'] = array();
 
         }
+//        echo '<pre>';
+//        print_r($treeElem);
+//        print_r($parents_arr);
+//        echo '</pre>';
         if(array_key_exists($key,$parents_arr)) {
             $treeElem[$key]['children'] = $parents_arr[$key];
+            var_dump($treeElem[$key]['children']);
             generateElemTree($treeElem[$key]['children'],$parents_arr);
         }
     }
@@ -56,15 +60,10 @@ function generateElemTree(&$treeElem,$parents_arr) {
 function createTree($arr) {
     $parents_arr = array();
     foreach($arr as $item) {
-        var_dump($item);
         $parents_arr[$item['parent_id']][$item['id']] = $item;
         }
-    var_dump($parents_arr);
     $tree_elem = $parents_arr[0];
-    echo '<pre>';
-    print_r($tree_elem);
-    echo '</pre>';
-    var_dump($tree_elem);
+    var_dump($parents_arr);
     generateElemTree($tree_elem,$parents_arr);
     return $tree_elem;
 }
