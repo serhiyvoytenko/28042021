@@ -209,12 +209,11 @@ function recursive_link($menu)
             }
             if (array_key_exists('children', $value) && count($value['children']) > 0) {
                 recursive_link($value['children']);
-                echo '</ul>';
             }
         }
         echo '</ul>';
     }
 }
 
-recursive_link($array_menu);
-
+recursive_link($menu);
+echo '</ul>';
