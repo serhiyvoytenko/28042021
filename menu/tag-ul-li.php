@@ -59,8 +59,6 @@ function recursive_link($menu)
         }
         echo '</ul>';
     }
-
-    return 0;
 }
 
 recursive_link($data);
