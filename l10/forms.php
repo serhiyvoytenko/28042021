@@ -41,8 +41,9 @@
     <div class="bg-light p-5 rounded">
 
         <form>
-            <div class="mb-3"><label>Name</label>
-                <input type="text" name="username" class="form-text">
+            <div class="mb-3">
+                <label id="username">Name</label>
+                <input type="text" name="username" class="form-text" id="username">
             </div>
             <div class="mb-3">
                 <label>Gender</label>
