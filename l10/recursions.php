@@ -63,20 +63,20 @@ function power(int $number, int $power): float
 echo power(5, 2);
 echo '<br>';
 
-$count = 0;
+//$count = 0;
 function fibonacci(int $n)
 {
-    static $count2 = 0;
-    $count2++;
+//    static $count2 = 0;
+//    $count2++;
     static $storage = [];
-    var_dump($storage, $count2);
-    global $count;
-    $count++;
+//    var_dump($storage, $count2);
+//    global $count;
+//    $count++;
     if (array_key_exists($n, $storage)) {
         return $storage[$n];
     }
     if ($n === 0 || $n === 1) {
-        var_dump($count2);
+//        var_dump($count2);
         return $n;
     }
 
@@ -86,7 +86,7 @@ function fibonacci(int $n)
 }
 
 echo '<hr>';
-$number_fib = 6;
+$number_fib = 26;
 $start_fib_array = microtime(true);
 $f = fibonacci($number_fib);
 $end_fib_array = microtime(true);
@@ -94,18 +94,18 @@ $time_fib_array = $end_fib_array - $start_fib_array;
 //var_dump($f, $count, $time_fib_array);
 echo 'Time with array: ', $time_fib_array, '<br>';
 echo 'Element ', $number_fib, ' = ', $f, '<br>';
-echo 'Count: ', $count;
+//echo 'Count: ', $count;
 
 echo '<hr>';
 
-$count2 = 0;
+//$count2 = 0;
 function fibonaci(int $n): int
 {
-    static $count = 0;
-    global $count2;
-    $count2++;
-    $count++;
-    var_dump($count);
+//    static $count = 0;
+//    global $count2;
+//    $count2++;
+//    $count++;
+//    var_dump($count);
     if ($n === 0 || $n === 1) {
 //        var_dump($count);
         return $n;
@@ -119,7 +119,7 @@ $end_fib_ = microtime(true);
 $time_fib_ = $end_fib_ - $start_fib_;
 echo 'Time with array: ', $time_fib_, '<br>';
 echo 'Element ', $number_fib, ' = ', $f, '<br>';
-echo 'Count: ', $count2;
+//echo 'Count: ', $count2;
 
 function fibon_array(int $number): float
 {
