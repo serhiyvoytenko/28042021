@@ -2,14 +2,21 @@
 
 function getNumbers(int $min, int $max):Generator
 {
+//    while ($min<=$max){
+//        yield $min;
+//        $min++;
+//    }
     for (;$min<=$max;$min++){
         yield $min;
     }
 //    return range($min, $max);
 }
+$start=microtime(true);
+$numbers = getNumbers(100,100000);
 
-$numbers = getNumbers(PHP_INT_MIN,PHP_INT_MAX);
 foreach ($numbers as $number){
-    echo $number,'';
+    echo $number,'<br>';
 }
-echo PHP_EOL;
+
+$end=microtime(true);
+echo $end-$start;
