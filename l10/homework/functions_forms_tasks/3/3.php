@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 
@@ -19,7 +20,7 @@ echo $header;
 
 
 $form = <<<FORM
-<form action="2.php" method="get">
+<form action="3.php" method="get">
     <p>
         <textarea name="text1" required placeholder="Text for one field"></textarea>
     </p>
@@ -30,16 +31,14 @@ $form = <<<FORM
 FORM;
 
 $return = <<<BACK
-<a href="https://magento.dn.pebs.biz/l10/homework/functions_forms_tasks/2.php">Back</a>
+<a href="https://magento.dn.pebs.biz/l10/homework/functions_forms_tasks/3/3.php">Back</a>
 BACK;
 
 
-if (array_key_exists('text1', $_GET)) {
-    $gettoplongword = getTopLongWord($_GET['text1']);
-    foreach ($gettoplongword as $value) {
-        echo $value, '<br>';
-    }
-    echo $return;
+if (array_key_exists('text1', $_GET) && is_numeric($_GET['text1'])) {
+    $arr = dellWordFromFile($_GET['text1']);
+    //    echo $return;
+    var_dump($arr);
 } else {
     echo $form;
 }
@@ -50,15 +49,19 @@ FOOTER;
 echo $footer;
 
 
-function getTopLongWord(string $a): array
+function dellWordFromFile(string $a): array
 {
-    $toplongword = explode(' ', $a);
-    foreach ($toplongword as $key => $value) {
-        if ($value === '') {
-            unset($toplongword[$key]);
+    $arr = [];
+    $handle = fopen(__DIR__ . "/text.txt", "rb");
+    if ($handle) {
+        while (($buffer = fgets($handle, 4096)) !== false) {
+
+            $arr[] = $buffer;
         }
+        if (!feof($handle)) {
+            echo "Ошибка: fgets() неожиданно потерпел неудачу\n";
+        }
+        fclose($handle);
     }
-    $strlen=array_map('strlen', $toplongword);
-    array_multisort($strlen, SORT_DESC, $toplongword);
-    return array_slice($toplongword, 0, 3);
+    return $arr;
 }
