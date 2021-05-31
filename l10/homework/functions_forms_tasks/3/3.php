@@ -4,6 +4,11 @@
 declare(strict_types=1);
 
 
+const CR = "\r";          // Carriage Return: Mac
+const LF = "\n";          // Line Feed: Unix
+const CRLF = "\r\n";      // Carriage Return and Line Feed: Windows
+const BR = '<br />' . LF; // HTML Break
+
 $header = <<<START
 <!doctype html>
 <html lang="en">
@@ -36,9 +41,9 @@ BACK;
 
 
 if (array_key_exists('text1', $_GET) && is_numeric($_GET['text1'])) {
-    $arr = dellWordFromFile($_GET['text1']);
-    //    echo $return;
-    var_dump($arr);
+    $del = delWordFromFile((int)$_GET['text1']);
+    echo '<br>';
+    echo $return;
 } else {
     echo $form;
 }
@@ -49,7 +54,7 @@ FOOTER;
 echo $footer;
 
 
-function dellWordFromFile(string $a): array
+function delWordFromFile(int $a): bool
 {
     $arr = [];
     $handle = fopen(__DIR__ . "/text.txt", "rb");
@@ -60,8 +65,41 @@ function dellWordFromFile(string $a): array
         }
         if (!feof($handle)) {
             echo "Ошибка: fgets() неожиданно потерпел неудачу\n";
+            return false;
         }
         fclose($handle);
     }
-    return $arr;
+    var_dump($arr);
+    foreach ($arr as $key1 => $value) {
+        $value=normalize($value);
+        $new_arr = explode(' ', $value);
+        foreach ($new_arr as $key => $str) {
+            if (mb_strlen($str) > $a) {
+                unset($new_arr[$key]);
+            }
+        }
+        if ($value===''){
+            unset($arr[$key1]);
+        }
+        $arr[$key1]=implode(' ',$new_arr);
+        if(empty($arr[$key1])){
+            unset($arr[$key1]);
+        };
+    }
+    var_dump($arr);
+    $handle = fopen(__DIR__ . "/text.txt", "wb");
+    if ($handle) {
+        foreach ($arr as $value){
+            fwrite($handle,$value);
+            fwrite($handle,"\r\n");
+        }
+        fclose($handle);
+    }
+
+    return true;
+}
+
+function normalize($s) {
+    $s = str_replace(array("\r\n", "\r", "\n"), "", $s);
+    return $s;
 }
