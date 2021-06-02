@@ -13,7 +13,7 @@ function listDirectoryFile(string $path, string $word): array
             if (is_dir($value)) {
                 unset($listdir[$key]);
             }
-            if (strpos($value, $word) === false && !empty($word)) {
+            if (!str_contains($value, $word) && !empty($word)) {
                 unset($listdir[$key]);
             }
         }
