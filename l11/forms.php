@@ -8,6 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -42,9 +43,9 @@
 
         <form action="comment-processor.php" method="post">
             <div class="mb-3">
-                <label id="username">Name
-                    <input type="text" name="username" class="form-text" id="username">
-                </label>
+                <label id="username" for="username">Name</label>
+                <input type="text" name="username" class="form-control" id="username">
+
             </div>
             <div class="mb-3">
                 <label>Gender</label>
@@ -70,10 +71,8 @@
                 </label>
             </div>
             <div class="mb-3">
-                <label for="comment" name="text">Label<br>
-
-                    <textarea class="mb-3" name="text"></textarea>
-                </label>
+                <label for="exampleFormControlTextarea1" class="form-label">Text</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
             </div>
             <button class="btn btn-success">Send</button>
             <?php require __DIR__ . '/comments-list.php' ?>
@@ -83,6 +82,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
-
 </body>
 </html>
