@@ -8,15 +8,18 @@ arsort($listfolderdate);
 foreach ($listfolderdate as $key => $day) {
     $listcomment = scandir($dir . $listfolderdate[$key]);
     $listcomment = array_filter($listcomment, static fn($name) => preg_match('/\d*_[a-f0-9]{32}.txt/', $name));
-
     uasort($listcomment, static fn($a, $b) => -($a <=> $b));
 
     foreach ($listcomment as $comment){
+//        var_dump($comment);
         $readcomment = file_get_contents($dir.$listfolderdate[$key].'/'.$comment);
         $readcommentarray = unserialize($readcomment);
-        $time = stristr($comment,'_',true);
-        $time = date('H:i:s', $time);
-        $readcommenAll[$day][$time]=$readcommentarray;
+//        $readcommentarray['text']=nl2br($readcommentarray['text']);
+//        $time = stristr($comment,'_',true);
+//        $time = date('H:i:s', $time);
+//        $readcommentarray['time']=$time;
+        $readcommentarray['id']=$day.'/'.$comment;
+        $readcommenAll[$day][$comment]=$readcommentarray;
     }
 
 
