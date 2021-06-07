@@ -14,19 +14,6 @@ if (isset($_GET['id'])) {
 ?>
 
 <div class="container-fluid pb-3">
-    <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
-        <div class="bg-light border rounded-3 p-3">
-            <form action="title.php" method="get" id="select-day">
-                <select class="form-select" name="select-day" form="select-day">
-                    <option selected>Last DAY</option>
-                    <option value="1">Last</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select><br>
-                <button type="submit"  class="btn btn-danger" form="select-day">Select</button>
-            </form>
-<!--            --><?php //var_dump($_GET);?>
-        </div>
         <div class="bg-light border rounded-3 p-3">
             <form name="guest-book" method="post" action="<?= $action ?>">
                 <div class="mb-3">
@@ -83,5 +70,5 @@ if (isset($_GET['id'])) {
                 </p>
             </form>
         </div>
-    </div>
+
 </div>
