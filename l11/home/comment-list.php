@@ -11,13 +11,8 @@ foreach ($listfolderdate as $key => $day) {
     uasort($listcomment, static fn($a, $b) => -($a <=> $b));
 
     foreach ($listcomment as $comment){
-//        var_dump($comment);
         $readcomment = file_get_contents($dir.$listfolderdate[$key].'/'.$comment);
         $readcommentarray = unserialize($readcomment);
-//        $readcommentarray['text']=nl2br($readcommentarray['text']);
-//        $time = stristr($comment,'_',true);
-//        $time = date('H:i:s', $time);
-//        $readcommentarray['time']=$time;
         $readcommentarray['id']=$day.'/'.$comment;
         $readcommenAll[$day][$comment]=$readcommentarray;
     }

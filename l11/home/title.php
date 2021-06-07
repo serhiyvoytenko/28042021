@@ -6,7 +6,6 @@ if (isset($_GET['select-day'])) {
 } else {
     $selectday = array_key_first($comment);
 }
-//var_dump($comment);
 require_once __DIR__ . '/form.php';
 ?>
     <div class="container-fluid pb-3">
@@ -22,8 +21,6 @@ require_once __DIR__ . '/form.php';
             <br>
         </div>
         <div class="bg-light border rounded-3 p-3">
-            <!--            --><?php //foreach ($comment as $day => $value): ?>
-            <!--            --><?php //$value = array_shift($comment) ?>
             <?php foreach ($comment[$selectday] as $time => $values): ?>
                 <b><?= 'Создано: ' . date('Y-m-d H:i:s', stristr($time, '_', true)) ?></b><br>
                 <b><?= (isset($values['time'])) ? ('Отредактировано: ' . $values['time']) . '<br>' : '' ?></b>
@@ -39,7 +36,6 @@ require_once __DIR__ . '/form.php';
                 </button>
                 <hr>
             <?php endforeach; ?>
-            <!--            --><?php //endforeach; ?>
         </div>
     </div>
 

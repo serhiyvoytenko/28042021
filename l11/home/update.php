@@ -1,6 +1,5 @@
 <?php
 
-//var_dump($_POST,$_GET);
 
 $dir = __DIR__.'/folder/';
 if (isset($_GET['id']) && file_exists($dir.$_GET['id'])) {
