@@ -33,7 +33,7 @@ function badwords(string $messages): ?string
     $errors = [];
 
     foreach ($badword as $value) {
-        if ((stripos($messages, $value))!==false) {
+        if ((stripos($messages, $value)) !== false) {
             $errors[] = $value;
         }
     }

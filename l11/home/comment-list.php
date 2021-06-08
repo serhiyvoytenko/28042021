@@ -10,11 +10,12 @@ foreach ($listfolderdate as $key => $day) {
     $listcomment = array_filter($listcomment, static fn($name) => preg_match('/\d*_[a-f0-9]{32}.txt/', $name));
     uasort($listcomment, static fn($a, $b) => -($a <=> $b));
 
-    foreach ($listcomment as $comment){
-        $readcomment = file_get_contents($dir.$listfolderdate[$key].'/'.$comment);
+    foreach ($listcomment as $comment) {
+        $readcomment = file_get_contents($dir . $listfolderdate[$key] . '/' . $comment);
         $readcommentarray = unserialize($readcomment);
-        $readcommentarray['id']=$day.'/'.$comment;
-        $readcommenAll[$day][$comment]=$readcommentarray;
+        $readcommentarray['id'] = $day . '/' . $comment;
+        $readcommentarray['text'] = strip_tags($readcommentarray['text'],'<b>');
+        $readcommenAll[$day][$comment] = $readcommentarray;
     }
 
 

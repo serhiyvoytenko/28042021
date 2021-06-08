@@ -20,7 +20,7 @@ if (isset($_GET['id'])) {
                 <b>Your name:</b><br>
                 <label class="form-control">
                     <input name="my-name" class="form-control" required
-                           value="<?= $commentlist[$day][$comment]['my-name'] ?? '' ?>">
+                           value="<?= isset($commentlist[$day][$comment]['my-name']) ? $commentlist[$day][$comment]['my-name'] : '' ?>">
                 </label>
             </div>
             <p>
