@@ -1,3 +1,5 @@
 <?php if (isset($_GET['error_message'])): ?>
-
-<?php endif ?>
+    <div class="alert alert-danger" role="alert">
+        <?= $_GET['error_message'] ?>
+    </div>
+<?php endif; ?>
