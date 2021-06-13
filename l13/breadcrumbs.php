@@ -7,7 +7,7 @@
 $routeArray = explode('/', $rout);
 unset($routeArray[0]);
 //var_dump($routeArray);
-$fullPath = '?rout=';
+$fullPath = 'index.php?rout=';
 ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
