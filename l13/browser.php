@@ -39,9 +39,11 @@ function renderFile(): string
 
     $type = mime_content_type($file);
     switch ($type) {
+        case 'image/gif':
+        case 'image/png':
         case 'image/jpeg':
             return renderImage($rout);
-        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.documentapplication/vnd.openxmlformats-officedocument.wordprocessingml.document':
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
             return '<img src="public/word.png" alt="Word" width="100px">';
         default:
             return 'File type is not supported';
