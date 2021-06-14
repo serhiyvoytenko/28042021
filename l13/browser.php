@@ -44,7 +44,9 @@ function renderFile(): string
         case 'image/jpeg':
             return renderImage($rout);
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            return '<img src="public/word.png" alt="Word" width="100px">';
+            return '<img src="public/word.png" alt="Word">';
+        case 'application/pdf':
+            return '<img src="public/Adobe-PDF-Document-icon.png" alt="PDF">';
         default:
             return 'File type is not supported';
     }

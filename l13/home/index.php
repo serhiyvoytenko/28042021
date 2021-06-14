@@ -3,9 +3,10 @@
 require __DIR__ . '/header.php';
 require __DIR__.'/browser.php';
 require_once __DIR__.'/helpers/get-route.php';
+require __DIR__.'/helpers/files.php';
 //$route = getRoute();
 $route= getRoute();
-var_dump($route);
+//var_dump($route);
 ?>
 
 
@@ -39,7 +40,7 @@ var_dump($route);
         </div>
         <br>
         <div class="container bg-light border rounded-3 p-3">
-            <?php foreach (getFilesList($route) as $links): ?>
+            <?php foreach (getFilesList() as $links): ?>
             <ul>
                 <li>
                     <a href="index.php?route=<?= $route.'/'.$links ?>"><?= $links ?></a>
