@@ -1,16 +1,19 @@
 <?php
 
 require __DIR__ . '/header.php';
-require __DIR__.'/browser.php';
-require_once __DIR__.'/helpers/get-route.php';
-require __DIR__.'/helpers/files.php';
-//$route = getRoute();
-$route= getRoute();
+require __DIR__ . '/browser.php';
+require_once __DIR__ . '/helpers/get-route.php';
+require __DIR__ . '/helpers/files.php';
+
+$route = getRoute();
 //var_dump($route);
 ?>
 
 
     <main class="">
+        <div class="container">
+            <?php require __DIR__ . '/success.php' ?>
+        </div>
         <div class="container bg-light border rounded-3 p-3">
             <form action="action/create-dir.php?route=<?= $route ?>" method="post" class="row">
                 <div class="col-8 p-3">
@@ -41,11 +44,11 @@ $route= getRoute();
         <br>
         <div class="container bg-light border rounded-3 p-3">
             <?php foreach (getFilesList() as $links): ?>
-            <ul>
-                <li>
-                    <a href="index.php?route=<?= $route.'/'.$links ?>"><?= $links ?></a>
-                </li>
-            </ul>
+                <ul>
+                    <li>
+                        <a href="index.php?route=<?= $route . '/' . $links ?>"><?= $links ?></a>
+                    </li>
+                </ul>
             <?php endforeach; ?>
         </div>
     </main>

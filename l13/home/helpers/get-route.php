@@ -6,7 +6,7 @@ function getRoute():string
 
     $storage = dirname(__DIR__) . '/homedir';
     $dir = realpath("{$storage}/{$route}");
-//var_dump($dir,$storage);
+//    var_dump($storage,$dir);
     if (!str_contains($dir, $storage)) {
         $dir = $storage;
     }
