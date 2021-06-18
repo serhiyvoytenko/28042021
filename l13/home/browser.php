@@ -31,7 +31,7 @@ function getFilesList(): array
         static fn($file) => !in_array($file, $disabledDirs, true)
     );
 
-//    usort($files, 'sortFileType');
+    usort($files, 'sortFileType');
 
     return $files;
 }
