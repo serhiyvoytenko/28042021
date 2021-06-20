@@ -2,8 +2,17 @@
 
 require_once __DIR__ . '/helpers/response.php';
 
-session_start();
+if (empty($_COOKIE['guest_id'])) {
+    try {
+        $byte = random_bytes(24);
 
+    } catch (Exception $e) {
+    }
+    $hex = bin2hex($byte);
+    setcookie('guest_id', $hex, time() + (3600 * 24 * 180));
+}
+session_start();
+//var_dump($_COOKIE);
 $isGuest = empty($_SESSION['user']);
 
 if ($isGuest) {
@@ -40,7 +49,7 @@ function login(string $login, string $password): bool
 
     $user = current($filtered);
 
-    if (password_verify($password, $user['password'])){
+    if (password_verify($password, $user['password'])) {
         $_SESSION['user'] = $user;
         return true;
     }
