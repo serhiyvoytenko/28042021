@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/security.php';
-
+//var_dump($_SESSION);
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +30,7 @@ require_once __DIR__.'/security.php';
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="/l13/actions/sign-out.php">Sign OUT</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
