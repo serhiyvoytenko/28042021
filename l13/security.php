@@ -3,6 +3,7 @@
 require_once __DIR__ . '/helpers/response.php';
 
 if (empty($_COOKIE['guest_id'])) {
+    $byte = '';
     try {
         $byte = random_bytes(24);
 
@@ -22,10 +23,10 @@ if ($isGuest) {
     if (login($login, $password)) {
         redirect('index.php');
         exit();
-    } else {
-        require __DIR__ . '/auth.php';
-        exit;
     }
+
+    require __DIR__ . '/auth.php';
+    exit;
 }
 
 function login(string $login, string $password): bool
