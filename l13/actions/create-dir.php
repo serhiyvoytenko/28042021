@@ -3,12 +3,7 @@
 require_once __DIR__ . '/../security.php';
 
 require_once __DIR__ . '/../helpers/response.php';
-require_once __DIR__ . '/../helpers/logs.php';
 
-
-$userid = $_COOKIE['guest_id'] ?? 'without_cookies';
-$uri = $_SERVER['REQUEST_URI'];
-createLogs($uri, $userid);
 
 $dirName = $_POST['dir_name'] ?? null;
 if (!$dirName) {
@@ -17,9 +12,8 @@ if (!$dirName) {
 
 $storage = __DIR__ . '/../storage/';
 $rout = !empty($_GET['rout']) ? "{$_GET['rout']}/" : '';
-
+$rout = is_dir(realpath($storage . $rout)) ? $rout : dirname($rout) . '/';
 $dir = "{$storage}{$rout}{$dirName}";
-
 $rout = rtrim($rout, '/');
 
 if (file_exists($dir)) {

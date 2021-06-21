@@ -36,7 +36,7 @@ function login(string $login, string $password): bool
     $users = [
         [
             'login' => 'test@test.com',
-            'password' => '$argon2id$v=19$m=65536,t=4,p=1$L1ExdXk5VDZseFFoRG1zOQ$+MWRlD3DxPKsbFMJJr1RPFgyep7tQeVqK77CKzzpABw',
+            'password' => '$argon2id$v=19$m=65536,t=4,p=1$TXdNaUkyV3p0RmNvV0RoRw$8q8ek8LEymv/qcBr5Fa6LvWF9nxjaT8RvPPBHb7aAGo',
         ],
     ];
 
