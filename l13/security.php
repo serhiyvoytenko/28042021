@@ -1,19 +1,20 @@
 <?php
 
 require_once __DIR__ . '/helpers/response.php';
+require_once __DIR__ . '/helpers/logs.php';
 
 if (empty($_COOKIE['guest_id'])) {
-    $byte = '';
-    try {
-        $byte = random_bytes(24);
 
-    } catch (Exception $e) {
-    }
+    addUniqueUser(date('Y-m-d H:i:s ') . $_SERVER['REMOTE_ADDR'] . PHP_EOL);
+
+    $byte = random_bytes(24);
+
     $hex = bin2hex($byte);
     setcookie('guest_id', $hex, time() + (3600 * 24 * 180));
 }
+
 session_start();
-//var_dump($_COOKIE);
+
 $isGuest = empty($_SESSION['user']);
 
 if ($isGuest) {

@@ -5,8 +5,12 @@ require __DIR__ . '/header.php';
 require __DIR__ . '/helpers/request.php';
 require __DIR__ . '/helpers/files.php';
 require __DIR__ . '/browser.php';
+require_once __DIR__.'/helpers/logs.php';
 
+
+$userid = $_COOKIE['guest_id']??'without_cookies';
 $rout = getRout();
+createLogs($_SERVER['REQUEST_URI'],$userid);
 $renderedFile = renderFile();
 $browserRout = $renderedFile ? dirname($rout) : $rout;
 
