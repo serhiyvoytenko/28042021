@@ -3,14 +3,12 @@
 function load(string $url)
 {
     session_start();
-
     $url = clearUrl($url);
-
-    security($url);
+//    security($url);
 
     $parts = getUrlParts($url);
-
-    require_once getControllerFile($parts);
+    $namecontrollerfile = getControllerFile($parts);
+    require_once $namecontrollerfile;
     getActionFunction($parts)();
 }
 

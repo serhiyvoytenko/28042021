@@ -2,8 +2,9 @@
 
 function render(string $template, array $variables = [], string $layout = 'main')
 {
+//    var_dump($variables);
     extract($variables,  EXTR_PREFIX_SAME, config('existedVariablePrefix'));
-
+//var_dump(get_defined_vars());
     $file = config('viewsRout') . '/' . $template . '.php';
     if (!file_exists($file)) {
         exit('Template do not exists');
