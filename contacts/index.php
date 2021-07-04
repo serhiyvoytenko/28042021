@@ -11,6 +11,5 @@ require_once __DIR__ . '/components/security.php';
 
 
 
-
 load($_SERVER['REQUEST_URI']);
 //var_dump($_SERVER['REQUEST_URI']);
