@@ -1,11 +1,11 @@
 <?php
 
-
 function config(string $key, mixed $default = null): mixed
 {
     $dir = dirname(__DIR__);
     $config = [
         'controllerRout' => "{$dir}/controllers",
+        'defaultController'=>'index',
         'viewsRout' => "{$dir}/views",
         'layoutsRout' => "{$dir}/views/layouts",
         'existedVariablePrefix' => 'skillup',
@@ -21,6 +21,5 @@ function config(string $key, mixed $default = null): mixed
             'db_name' => 'skillup_db',
         ]
     ];
-
     return $config[$key] ?? $default;
 }

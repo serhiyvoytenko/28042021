@@ -3,13 +3,18 @@
 function load(string $url)
 {
     session_start();
+
     $url = clearUrl($url);
+
     security($url);
 
     $parts = getUrlParts($url);
-    $namecontrollerfile = getControllerFile($parts);
-    require_once $namecontrollerfile;
-    getActionFunction($parts)();
+
+    $controllerName = array_shift($parts) ?: config('defaultController');
+    require_once getControllerFile($controllerName);
+
+    $actionName = array_shift($parts) ?: config('defaultAction');
+    getActionFunction($actionName)();
 }
 
 function getUrlParts(string $url): array
@@ -23,12 +28,11 @@ function clearUrl(string $url): string
     return preg_replace('/\\?.*/', '', $url);
 }
 
-function getControllerFile(array &$parts): string
+function getControllerFile(string $controllerName): string
 {
-    $controllerName = array_shift($parts);
     $controllerName = camelize($controllerName);
     $controllerName = "{$controllerName}Controller.php";
-    $controllerFile = config('controllerRout') . '/' . $controllerName;
+    $controllerFile = config('controllersRout') . '/' . $controllerName;
     if (!file_exists($controllerFile)) {
         exit('Controller do not exists');
     }
@@ -36,9 +40,8 @@ function getControllerFile(array &$parts): string
     return $controllerFile;
 }
 
-function getActionFunction(array &$parts): string
+function getActionFunction(string $actionName): string
 {
-    $actionName = array_shift($parts);
     $actionName = camelize($actionName);
     $actionFunction = "action{$actionName}";
     if (!function_exists($actionFunction)) {
