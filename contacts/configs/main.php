@@ -4,8 +4,9 @@ function config(string $key, mixed $default = null): mixed
 {
     $dir = dirname(__DIR__);
     $config = [
-        'controllerRout' => "{$dir}/controllers",
+        'controllersRout' => "{$dir}/controllers",
         'defaultController'=>'index',
+        'defaultAction'=>'index',
         'viewsRout' => "{$dir}/views",
         'layoutsRout' => "{$dir}/views/layouts",
         'existedVariablePrefix' => 'skillup',

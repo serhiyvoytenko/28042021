@@ -3,12 +3,12 @@
         <h1 class="h3 mb-3 fw-normal">Please register</h1>
 
         <div class="form-floating">
-            <input type="email"
+            <input type="text"
                    name="login"
                    class="form-control"
                    id="floatingInput"
-                   placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+                   placeholder="Login">
+            <label for="floatingInput">Login</label>
         </div>
         <div class="form-floating">
             <input type="password"
