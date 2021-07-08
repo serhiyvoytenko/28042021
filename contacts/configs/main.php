@@ -5,6 +5,7 @@ function config(string $key, mixed $default = null): mixed
     $dir = dirname(__DIR__);
     $config = [
         'controllersRout' => "{$dir}/controllers",
+        'modelsDir'=>"{$dir}/models",
         'defaultController'=>'index',
         'defaultAction'=>'index',
         'viewsRout' => "{$dir}/views",
@@ -20,7 +21,8 @@ function config(string $key, mixed $default = null): mixed
             'user' => 'skillup_user',
             'password' => 'skillup_pwd',
             'db_name' => 'skillup_db',
-        ]
+        ],
+        'recordsOnPage'=>50,
     ];
     return $config[$key] ?? $default;
 }
