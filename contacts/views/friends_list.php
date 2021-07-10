@@ -5,6 +5,8 @@
  * @var int $totalPages
  * @var int $currentPage
  * @var string $paginationUrl
+ * @var int $firstPagePagination
+ * @var int $lastPagePagination
  */
 
 $hasPrevPage = $currentPage > 1;
@@ -47,7 +49,7 @@ $hasNextPage = $currentPage < $totalPages;
                 <a class="page-link" href="<?= $paginationUrl ?>?page=<?= $currentPage - 1 ?>">Previous</a>
             </li>
         <?php endif; ?>
-        <?php for($i = 1; $i <= $totalPages; $i++): ?>
+        <?php for($i = $firstPagePagination; $i <= $lastPagePagination; $i++): ?>
             <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
                 <a class="page-link" href="<?= $paginationUrl ?>?page=<?= $i ?>"><?= $i ?></a>
             </li>

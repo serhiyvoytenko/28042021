@@ -10,6 +10,10 @@ function actionList()
 
     $totalPages = ceil(getAllUsersCount() / $limit);
     $userId = $_SESSION['user']['id'];
+//    if ($page > 0 && $page <= $totalPages) {
+        $firstPagePagination = ($page - 3) <= 0 ? 1 : $page - 3;
+        $lastPagePagination = ($page + 3) > $totalPages ? $totalPages : $page + 3;
+//    }
 
     render('contacts/list',
         [
@@ -17,6 +21,8 @@ function actionList()
             'totalPages' => $totalPages,
             'currentPage' => $page,
             'paginationUrl' => '/contacts/list',
+            'firstPagePagination' => $firstPagePagination,
+            'lastPagePagination' => $lastPagePagination,
         ]);
 }
 
