@@ -4,7 +4,7 @@ function createUser(array $userData): bool
 {
     $connect = getDbConnection();
 
-    $password = password_hash($userData['password'],  PASSWORD_BCRYPT);
+    $password = password_hash($userData['password'], PASSWORD_BCRYPT);
     $sql = <<<SQL
         INSERT INTO `users` (`login`, `password`)
         VALUES (?, ?)
@@ -57,6 +57,26 @@ function generateRandomUsers(int $count)
         }
     }
 
+    if ($rows) {
+        executeBatchInsertQuery($connect, $sql, $rows);
+    }
+}
+
+function generateRandomContacts(int $firsID, int $endID): void
+{
+    $connect = getDbConnection();
+    $sql = 'INSERT IGNORE INTO `user_contacts` (`contact`, `type`, `user_id`) VALUES ';
+    $rows = [];
+
+    for ($i = $firsID; $i < $endID; $i++) {
+
+        $contactAddress = "London, House {$i}";
+        $contactPhone = "+380234{$i}";
+        $contactEmail = "test{$i}@test.com";
+        $rows[] = "('{$contactAddress}', 'address', '{$i}')";
+        $rows[] = "('{$contactPhone}', 'phone', '{$i}')";
+        $rows[] = "('{$contactEmail}', 'email', '{$i}')";
+    }
     if ($rows) {
         executeBatchInsertQuery($connect, $sql, $rows);
     }

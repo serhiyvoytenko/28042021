@@ -11,7 +11,7 @@
 
 $hasPrevPage = $currentPage > 1;
 $hasNextPage = $currentPage < $totalPages;
-
+var_dump($users);exit();
 ?>
 <table class="table">
     <thead>
@@ -27,8 +27,10 @@ $hasNextPage = $currentPage < $totalPages;
     <?php foreach ($users as $user): ?>
         <tr>
             <th scope="row"><?= $user['id'] ?></th>
-            <td><?= $user['name'] ?: $user['login'] ?></td>
-            <td><?= $user['birthday'] ?: '--' ?></td>
+            <td><?= $user['name'] ?: $user['login'] ?><br>
+                <?php if (isset($user['address']) || isset($user['phone']) || isset($user['email'])) require __DIR__ . '/index/address.php'; ?>
+            </td>
+            <td><?= $user['birthday'] ?? '--' ?></td>
             <td><?= $user['create_at'] ?></td>
             <td>
                 <?php if ($user['is_my_friend']): ?>
@@ -49,7 +51,7 @@ $hasNextPage = $currentPage < $totalPages;
                 <a class="page-link" href="<?= $paginationUrl ?>?page=<?= $currentPage - 1 ?>">Previous</a>
             </li>
         <?php endif; ?>
-        <?php for($i = $firstPagePagination; $i <= $lastPagePagination; $i++): ?>
+        <?php for ($i = $firstPagePagination; $i <= $lastPagePagination; $i++): ?>
             <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
                 <a class="page-link" href="<?= $paginationUrl ?>?page=<?= $i ?>"><?= $i ?></a>
             </li>

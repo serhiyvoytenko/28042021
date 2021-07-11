@@ -55,17 +55,46 @@ function getAvailableFriends(int $userId, int $page = 1, int $limit = 50): array
 function getMyFriends(int $userId, int $page = 1, int $limit = 50): array
 {
     $connect = getDbConnection();
+//    $sql = <<<SQL
+//        SELECT
+//               users.id,
+//               name,
+//               login,
+//               birthday,
+//               create_at,
+//               (SELECT `user_contacts`.`contact`
+//                    FROM `user_contacts`
+//                    WHERE `type` IN ('phone') AND user_contacts.`user_id`=`users`.`id`) AS phone,
+//               (SELECT `user_contacts`.`contact`
+//                    FROM `user_contacts`
+//                    WHERE `type` IN ('address') AND user_contacts.`user_id`=`users`.`id`) AS address,
+//               (SELECT `user_contacts`.`contact`
+//                    FROM `user_contacts`
+//                    WHERE `type` IN ('email') AND user_contacts.`user_id`=`users`.`id`) AS email,
+//               true AS is_my_friend
+//        FROM users
+//        INNER JOIN friends AS f ON users.id = f.friend_id
+//        WHERE f.user_id = ?
+//        ORDER BY name, login
+//        LIMIT ?
+//        OFFSET ?
+//    SQL;
+//#         INNER JOIN user_contacts ON user_contacts.user_id = friends.friend_id
+
     $sql = <<<SQL
         SELECT
-               id, 
+               users.id, 
                name, 
                login, 
                birthday,
                create_at,
+               GROUP_CONCAT(contact) AS contact,
+               type,
                true AS is_my_friend
         FROM users
-        INNER JOIN friends ON friends.friend_id = users.id
-        WHERE friends.user_id = ?
+        INNER JOIN friends AS f ON users.id = f.friend_id
+        LEFT JOIN user_contacts AS uc on users.id = uc.user_id
+        WHERE f.user_id = ?
         ORDER BY name, login
         LIMIT ?
         OFFSET ?
@@ -79,6 +108,7 @@ function getMyFriends(int $userId, int $page = 1, int $limit = 50): array
     $result = mysqli_stmt_get_result($stmt);
 
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+//    var_dump(mysqli_fetch_all($result, MYSQLI_ASSOC));exit();
 }
 
 function getMyFriendsCount(int $userId): int

@@ -1,6 +1,6 @@
 <?php
 
-function config(string $key, mixed $default = null): mixed
+function config(string $key, mixed $default = null):mixed
 {
     $dir = dirname(__DIR__);
     $config = [
