@@ -88,7 +88,7 @@ function getMyFriends(int $userId, int $page = 1, int $limit = 50): array
                login, 
                birthday,
                create_at,
-               GROUP_CONCAT(contact) AS contact,
+               contact,
                type,
                true AS is_my_friend
         FROM users

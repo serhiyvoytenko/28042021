@@ -12,11 +12,11 @@ function actionIndex()
 
     $firstPagePagination = ($page - 3) <= 0 ? 1 : $page - 3;
     $lastPagePagination = ($page + 3) > $totalPages ? $totalPages : $page + 3;
-
+    $myFriends = getMyFriends($userId, $page, $limit);
 
 
     render('index/index', [
-        'users' => getMyFriends($userId, $page, $limit),
+        'users' => transformArray($myFriends),
         'totalPages' => $totalPages,
         'currentPage' => $page,
         'paginationUrl' => '/',

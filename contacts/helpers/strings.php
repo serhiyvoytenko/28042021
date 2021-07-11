@@ -6,7 +6,8 @@ function camelize(string $string, $separator = '-'): string
     return str_replace($separator, '', $string);
 }
 
-function generateRandomName(): string {
+function generateRandomName(): string
+{
     $firstName = [
         'Johnathon',
         'Anthony',
@@ -118,4 +119,26 @@ function generateRandomName(): string {
     $name .= $lastName[random_int(0, count($lastName) - 1)];
 
     return $name;
+}
+
+function transformArray(array $myFriends): array
+{
+    $myNewFriends = [];
+
+    foreach ($myFriends as $key => $values) {
+
+        if (in_array($values['id'], array_column($myNewFriends, 'id'), true)) {
+            $myNewFriends[array_key_last($myNewFriends)]['contact'][$values['type']] = $values['contact'];
+
+        } else {
+
+            $contact = $values['contact'];
+            $type = $values['type'];
+            unset($values['contact']);
+            $values['contact'][$type] = $contact;
+            $myNewFriends[$key] = $values;
+
+        }
+    }
+    return $myNewFriends;
 }

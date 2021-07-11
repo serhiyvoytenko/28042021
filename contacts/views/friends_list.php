@@ -11,7 +11,7 @@
 
 $hasPrevPage = $currentPage > 1;
 $hasNextPage = $currentPage < $totalPages;
-var_dump($users);exit();
+//var_dump($users);exit();
 ?>
 <table class="table">
     <thead>
@@ -28,7 +28,7 @@ var_dump($users);exit();
         <tr>
             <th scope="row"><?= $user['id'] ?></th>
             <td><?= $user['name'] ?: $user['login'] ?><br>
-                <?php if (isset($user['address']) || isset($user['phone']) || isset($user['email'])) require __DIR__ . '/index/address.php'; ?>
+                <?php if (isset($user['contact'])) require __DIR__ . '/index/address.php'; ?>
             </td>
             <td><?= $user['birthday'] ?? '--' ?></td>
             <td><?= $user['create_at'] ?></td>
