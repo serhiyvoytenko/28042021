@@ -142,3 +142,30 @@ function transformArray(array $myFriends): array
     }
     return $myNewFriends;
 }
+
+function newArrayTransform(array $myFriends): array
+{
+    $myNewFriends = [];
+
+    foreach ($myFriends as $values) {
+
+        if (array_key_exists($values['id'], $myNewFriends)) {
+            $myNewFriends[$values['id']]['contact'][$values['type']] = $values['contact'];
+
+        } else {
+
+            $myNewFriends[$values['id']] = [
+                'name' => $values['name'],
+                'login' => $values['login'],
+                'birthday' => $values['birthday'],
+                'create_at' => $values['create_at'],
+                'is_my_friend' => $values['is_my_friend'],
+                'contact' => [
+                    $values['type'] => $values['contact'],
+                ],
+            ];
+        }
+    }
+
+    return $myNewFriends;
+}

@@ -17,6 +17,7 @@ function actionIndex()
 
     render('index/index', [
         'users' => transformArray($myFriends),
+//        'users' => newArrayTransform($myFriends),
         'totalPages' => $totalPages,
         'currentPage' => $page,
         'paginationUrl' => '/',
