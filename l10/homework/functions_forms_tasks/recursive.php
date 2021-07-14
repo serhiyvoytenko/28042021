@@ -8,15 +8,15 @@ for ($i = 0; $i <= 100; $i++) {
 }
 
 
-function echoArray(array $arr, int $key = 0) : void
+function echoArray(array $arr, int $key = 0): void
 {
     $nextKey = $key + 1;
-    echo $arr[$key].'<br>';
     if (empty($arr[$nextKey])){
         exit();
     }
+    echo $arr[$key].'<br>';
     echoArray($arr, $nextKey);
 }
-
 echoArray($arr);
+//var_dump($arr);
 //var_dump($result, $arr);
