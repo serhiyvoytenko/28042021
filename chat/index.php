@@ -9,4 +9,4 @@ $config = array_merge(
     require __DIR__.'/config/web.php',
 );
 
-var_dump($config);
+$app = App::run($config);

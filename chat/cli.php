@@ -11,4 +11,4 @@ $config = array_merge(
   require __DIR__.'/config/cli.php',
 );
 
-var_dump(new CliDispatcher());
+$app = App::run($config);
