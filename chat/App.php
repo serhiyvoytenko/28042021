@@ -32,14 +32,11 @@ final class App
         if (self::$instance !== null) {
             throw new RuntimeException('Application is already initialized!');
         }
-
         self::$instance = new self($config);
-
         self::$instance
             ->setSession()
             ->setTemplate()
             ->setRouter();
-
         return self::$instance;
     }
 
