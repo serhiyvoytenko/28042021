@@ -8,5 +8,4 @@ $config = array_merge(
     require __DIR__.'/config/general.php',
     require __DIR__.'/config/web.php',
 );
-
 $app = App::run($config);

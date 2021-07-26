@@ -7,6 +7,7 @@ use cli\components\CliDispatcher;
 use components\Session;
 use components\Template;
 use web\components\WebDispatcher;
+use components\DB;
 
 final class App
 {
@@ -14,6 +15,7 @@ final class App
     public const ROUTER = 'router';
     public const TEMPLATE = 'template';
     public const SESSION = 'session';
+    public const DB = 'db';
 
     private array $storage = [];
 
@@ -36,7 +38,9 @@ final class App
         self::$instance
             ->setSession()
             ->setTemplate()
+            ->setDB()
             ->setRouter();
+//        var_dump(self::$instance);
         return self::$instance;
     }
 
@@ -92,6 +96,24 @@ final class App
             $config['layoutsDir'],
             $config['defaultLayout'],
             $config['existedVariablePrefix']
+        );
+        return $this;
+    }
+
+    public function db(): DB
+    {
+        return $this->storage[self::DB];
+    }
+
+    public function setDB(): self
+    {
+        $config = $this->config()->get('db');
+
+        $this->storage[self::DB] = new DB(
+          $config['db_name'],
+          $config['host'],
+          $config['user'],
+          $config['password']
         );
         return $this;
     }

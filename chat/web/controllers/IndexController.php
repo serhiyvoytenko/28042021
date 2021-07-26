@@ -12,5 +12,7 @@ class IndexController extends AbstractController
     {
         $b = App::get()->template()?->render('index/index');
         echo $b;
+        $c = App::get()->db()->getConnect();
+        var_dump($c);
     }
 }
