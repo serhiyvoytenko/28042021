@@ -9,6 +9,7 @@ use RuntimeException;
 
 abstract class ActiveRecord
 {
+
     private array $securedFields = [
         'created_at',
         'updated_at',
@@ -20,6 +21,7 @@ abstract class ActiveRecord
 
     private array $attributes;
     private array $flags_attributes;
+    private bool $isInit;
 
     private bool $isNewRecord = true;
 
@@ -42,8 +44,11 @@ abstract class ActiveRecord
         $stmt->execute([':id' => $id]);
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $entity ->setIsInit(true);
+//        var_dump($entity);
         $entity ->setAttributes($data);
-//        var_dump($entity);exit();
+        $entity->setIsInit(false);
+//        var_dump($entity);
         return $entity;
     }
 
@@ -57,7 +62,7 @@ abstract class ActiveRecord
 
     private function initAttributes(): void
     {
-        $db = App::get()->db()->db;
+        $db = App::get()->db()->getDB();
         $sql = <<<SQL
             SELECT `COLUMN_NAME`
             FROM `INFORMATION_SCHEMA`.`COLUMNS`
@@ -71,9 +76,22 @@ SQL;
         $keys = array_column($data, 'COLUMN_NAME');
         $values = array_fill(0, count($data), null);
         $this->attributes = array_combine($keys, $values);
+
+
         $this->flags_attributes = $this->attributes;
+
+
         $this->isNewRecord = true;
 
+    }
+
+    private function resetFlags(): void
+    {
+        $values = array_fill(0, count($this->flags_attributes), null);
+//        var_dump($values, $this->flags_attributes);
+        $this->flags_attributes = array_combine(
+            array_keys($this->flags_attributes),
+            $values);
     }
 
     private function initPrimaryKey(): void
@@ -159,12 +177,17 @@ SQL;
                 continue;
             }
 
+            if (!$this->flags_attributes[$attribute]){
+                continue;
+            }
+
             $values[] = "`{$attribute}` = :{$attribute}";
             $params[$attribute] = $value;
         }
         $fields = implode(', ', $values);
         $sql = "UPDATE `{$this->tableName()}` SET {$fields} WHERE `{$this->primaryKey}` = :{$this->primaryKey} LIMIT 1";
         $stmt = $this->db->prepare($sql);
+        $this->resetFlags();
         return $stmt->execute($params);
     }
 
@@ -184,10 +207,31 @@ SQL;
         }
 
         $this->attributes[$key] = $value;
+        if(!$this->isInit()) {
+            $this->flags_attributes[$key] = true;
+        }
     }
 
     public function __isset(string $key): bool
     {
         return array_key_exists($key, $this->attributes);
     }
+
+    /**
+     * @return bool
+     */
+    public function isInit(): bool
+    {
+        return $this->isInit;
+    }
+
+    /**
+     * @param bool $isInit
+     */
+    public function setIsInit(bool $isInit): void
+    {
+        $this->isInit = $isInit;
+    }
+
+
 }

@@ -26,10 +26,19 @@ class UsersController extends AbstractController
 
         // UPDATE
         $user = UserEntity::findOne(4);
+//        var_dump($user);
         $user->name = 'Yuri Redner';
         $user->birthday = '1974-03-08';
-//        $user->save();
-            var_dump($user);
+        var_dump($user);
+        $user->save();
+        var_dump($user);
+        $user->name = 'Serhiy Serhiy';
+        $user->birthday = '1998-05-05';
+        var_dump($user);
+        $user->save();
+        var_dump($user);
+
+
 //
 //
 //        $user = UserEntity::findOne(4576);

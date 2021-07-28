@@ -10,7 +10,7 @@ class DB
     private string $host;
     private string $login;
     private string $password;
-    public string $db;
+    private string $db;
 
     private ?PDO $connection = null;
 
@@ -35,5 +35,8 @@ class DB
         return $this->connection;
     }
 
-
+    public function getDB(): string
+    {
+        return $this->db;
+    }
 }
