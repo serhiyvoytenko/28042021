@@ -6,6 +6,7 @@ use components\AbstractDispatcher;
 use cli\components\CliDispatcher;
 use components\Session;
 use components\Template;
+use web\components\User;
 use web\components\WebDispatcher;
 use components\DB;
 
@@ -16,6 +17,7 @@ final class App
     public const TEMPLATE = 'template';
     public const SESSION = 'session';
     public const DB = 'db';
+    public const USER = 'user';
 
     private array $storage = [];
 
@@ -35,13 +37,28 @@ final class App
             throw new RuntimeException('Application is already initialized!');
         }
         self::$instance = new self($config);
+
         self::$instance
+            ->setDB()
             ->setSession()
             ->setTemplate()
-            ->setDB()
+            ->setUser()
             ->setRouter();
+
+        self::$instance->router()->init();
 //        var_dump(self::$instance);
         return self::$instance;
+    }
+
+    private function setUser(): self
+    {
+        $this->storage[self::USER] = new User();
+        return $this;
+    }
+
+    public function user(): User
+    {
+        return $this->storage[self::USER];
     }
 
     public static function get(): self
@@ -121,10 +138,7 @@ final class App
     private function setRouter(): self
     {
         $dispatcher = $this->getDispatcher();
-        $router = new Router($dispatcher);
-        $router->init();
-
-        $this->storage[self::ROUTER] = $router;
+        $this->storage[self::ROUTER] = new Router($dispatcher);
         return $this;
     }
 
@@ -135,5 +149,10 @@ final class App
         }
 
         return new WebDispatcher();
+    }
+
+    public function router(): Router
+    {
+        return $this->storage[self::ROUTER];
     }
 }

@@ -4,12 +4,12 @@ namespace web\controllers;
 
 use App;
 use components\AbstractController;
-use models\UserContactEntity;
-use models\UserEntity;
+//use models\UserContactEntity;
+//use models\UserEntity;
 
 class UsersController extends AbstractController
 {
-    public function actionList()
+    public function actionList(): void
     {
         // INSERT
 //        $users = UserEntity::findAll();
@@ -24,19 +24,19 @@ class UsersController extends AbstractController
 //
 //        var_dump($users);exit;
 
-        // UPDATE
-        $user = UserEntity::findOne(4);
+//        // UPDATE
+//        $user = UserEntity::findOne(4);
+////        var_dump($user);
+//        $user->name = 'Yuri Redder';
+//        $user->birthday = '1974-03-08';
 //        var_dump($user);
-        $user->name = 'Yuri Redner';
-        $user->birthday = '1974-03-08';
-        var_dump($user);
-        $user->save();
-        var_dump($user);
-        $user->name = 'Serhiy Serhiy';
-        $user->birthday = '1998-05-05';
-        var_dump($user);
-        $user->save();
-        var_dump($user);
+//        $user->save();
+//        var_dump($user);
+//        $user->name = 'Serhiy Serhiy';
+//        $user->birthday = '1998-05-05';
+//        var_dump($user);
+//        $user->save();
+//        var_dump($user);
 
 
 //

@@ -4,15 +4,12 @@
 namespace web\controllers;
 
 use App;
-use components\AbstractController;
+use web\components\AbstractWebController;
 
-class IndexController extends AbstractController
+class IndexController extends AbstractWebController
 {
     public function actionIndex(): void
     {
-        $b = App::get()->template()?->render('index/index');
-        echo $b;
-        $c = App::get()->db()->getConnect();
-        var_dump($c);
+        $this->render('index/index');
     }
 }
