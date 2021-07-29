@@ -1,8 +1,7 @@
 <?php
 
-require_once __DIR__ . '/Autoloader.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-spl_autoload_register([new Autoloader(__DIR__), 'load']);
 
 $config = array_merge(
     require __DIR__.'/config/general.php',
