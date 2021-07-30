@@ -13,7 +13,9 @@ class Session
 
     public function set(string $key, mixed $value): void
     {
+//        var_dump($key,$value,$_SESSION);
         $_SESSION[$key] = $value;
+
     }
 
     public function get(string $key, mixed $default = null): mixed

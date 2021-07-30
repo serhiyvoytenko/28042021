@@ -14,7 +14,9 @@ abstract class AbstractWebController extends AbstractController
     {
         $guestPages = $this->config()->get('guestPages');
         $currentPage = $this->router()->getCurrentPage();
-        if ($this->user()->isGuest() && !in_array($currentPage, $guestPages, true)) {
+        if ($this->user()->isGuest() && !in_array($currentPage, $guestPages, true))
+        {
+//            var_dump($this->user()->isGuest(), in_array($currentPage, $guestPages, true));
             $this->redirect($this->config()->get('loginPage'));
         }
     }
@@ -22,14 +24,14 @@ abstract class AbstractWebController extends AbstractController
     protected function redirect(string $url, int $status = 301, bool $terminate = true): void
     {
 //        var_dump($url, $terminate);
-        header("Location: {$url}, true, $status");
-        if ($terminate){
+        header("Location: {$url}", true, $status);
+        if ($terminate) {
             exit;
         }
 
     }
 
-    protected function render (string $template, array $vars = [], string $layout = ''): void
+    protected function render(string $template, array $vars = [], string $layout = ''): void
     {
         echo $this->template()?->render($template, $vars, $layout);
     }

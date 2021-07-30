@@ -24,8 +24,9 @@ class User
     public function login(UserEntity $userEntity): void
     {
         App::get()->session()?->set(self::USER_KEY, $userEntity);
-        $this->user = $userEntity;
+//        var_dump(App::get()->session()?->get(self::USER_KEY));exit();
         $this->isGuest = false;
+var_dump($this->isGuest);
     }
 
     public function logout(): void

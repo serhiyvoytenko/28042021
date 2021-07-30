@@ -47,6 +47,7 @@ final class App
             ->setRouter();
 
         self::$instance->router()->init();
+//var_dump(self::$instance);
         return self::$instance;
     }
 

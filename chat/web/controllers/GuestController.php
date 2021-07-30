@@ -15,6 +15,7 @@ class GuestController extends AbstractWebController
 //        var_dump($_REQUEST);exit();
         if (RequestHelper::isPost()) {
             $user = UserEntity::findOne($_POST['login'], 'login');
+//            var_dump($user);exit();
             if ($user && password_verify($_POST['password'], $user->password)) {
                 App::get()->user()->login($user);
                 $this->redirect(App::get()->config()->get('mainPage'));
