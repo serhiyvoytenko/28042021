@@ -12,6 +12,7 @@ class GuestController extends AbstractWebController
     public function actionLogin(): void
     {
         $errors = [];
+//        var_dump($_REQUEST);exit();
         if (RequestHelper::isPost()) {
             $user = UserEntity::findOne($_POST['login'], 'login');
             if ($user && password_verify($_POST['password'], $user->password)) {

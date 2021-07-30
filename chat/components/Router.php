@@ -15,8 +15,7 @@ class Router
     public function __construct(AbstractDispatcher $dispatcher)
     {
         $this->dispatcher = $dispatcher;
-        $this->currentPage = "{$this->dispatcher->getControllerPart()}/
-        {$this->dispatcher->getActionPart()}";
+        $this->currentPage = "{$this->dispatcher->getControllerPart()}/{$this->dispatcher->getActionPart()}";
     }
 
     public function init(): void

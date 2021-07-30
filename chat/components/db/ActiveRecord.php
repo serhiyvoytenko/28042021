@@ -35,11 +35,11 @@ abstract class ActiveRecord
 
     abstract protected function tableName(): string;
 
-    public static function findOne(int $id): static
+    public static function findOne(int|string $id, ?string $column = null): static
     {
         $entity = new static();
 
-        $sql = "SELECT * FROM `{$entity->tableName()}` WHERE `{$entity->primaryKey}` = :id LIMIT 1";
+        $sql = "SELECT * FROM `{$entity->tableName()}` WHERE `{$column}` = :id LIMIT 1";
         $stmt = App::get()->db()->getConnect()->prepare($sql);
         $stmt->execute([':id' => $id]);
 

@@ -3,10 +3,8 @@
 
 namespace web\components;
 
-//use App;
 use components\AbstractController;
 use helpers\ComponentsTrait;
-//use Magento\Tests\NamingConvention\true\string;
 
 abstract class AbstractWebController extends AbstractController
 {
@@ -23,6 +21,7 @@ abstract class AbstractWebController extends AbstractController
 
     protected function redirect(string $url, int $status = 301, bool $terminate = true): void
     {
+//        var_dump($url, $terminate);
         header("Location: {$url}, true, $status");
         if ($terminate){
             exit;
@@ -34,5 +33,4 @@ abstract class AbstractWebController extends AbstractController
     {
         echo $this->template()?->render($template, $vars, $layout);
     }
-
 }
