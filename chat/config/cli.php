@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'controllerNamespace' => 'cli\\controllers',
+    'controllersNamespace' => 'cli\\controllers',
     'initSession' => false,
 ];

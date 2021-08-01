@@ -1,6 +1,5 @@
 <?php
 
-
 namespace components\db;
 
 use App;
@@ -9,21 +8,18 @@ use RuntimeException;
 
 abstract class ActiveRecord
 {
-
-    private array $securedFields = [
+    protected array $securedFields = [
         'created_at',
         'updated_at',
     ];
 
     private PDO $db;
 
-    private string $primaryKey;
+    protected string $primaryKey;
 
-    private array $attributes;
-    private array $flags_attributes;
-    private bool $isInit;
+    protected array $attributes;
 
-    private bool $isNewRecord = true;
+    protected bool $isNewRecord = true;
 
     public function __construct()
     {
@@ -39,73 +35,15 @@ abstract class ActiveRecord
     {
         $entity = new static();
 
+        $column = $column ?: $entity->primaryKey;
         $sql = "SELECT * FROM `{$entity->tableName()}` WHERE `{$column}` = :id LIMIT 1";
         $stmt = App::get()->db()->getConnect()->prepare($sql);
         $stmt->execute([':id' => $id]);
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        $entity ->setIsInit(true);
-//        var_dump($entity);
-        $entity ->setAttributes($data);
-        $entity->setIsInit(false);
-//        var_dump($entity);
+        $entity->setAttributes($data);
+
         return $entity;
-    }
-
-    private function setAttributes(array $data): void
-    {
-        $this->isNewRecord = false;
-        foreach ($data as $key => $value) {
-            $this->{$key} = $value;
-        }
-    }
-
-    private function initAttributes(): void
-    {
-        $db = App::get()->db()->getDB();
-        $sql = <<<SQL
-            SELECT `COLUMN_NAME`
-            FROM `INFORMATION_SCHEMA`.`COLUMNS`
-            WHERE `TABLE_SCHEMA` = '{$db}' AND `TABLE_NAME` = '{$this->tableName()}'
-            ORDER BY `ORDINAL_POSITION`
-
-SQL;
-
-        $stmt = $this->db->query($sql, PDO::FETCH_ASSOC);
-        $data = $stmt->fetchAll();
-        $keys = array_column($data, 'COLUMN_NAME');
-        $values = array_fill(0, count($data), null);
-        $this->attributes = array_combine($keys, $values);
-
-
-        $this->flags_attributes = $this->attributes;
-
-
-        $this->isNewRecord = true;
-
-    }
-
-    private function resetFlags(): void
-    {
-        $values = array_fill(0, count($this->flags_attributes), null);
-//        var_dump($values, $this->flags_attributes);
-        $this->flags_attributes = array_combine(
-            array_keys($this->flags_attributes),
-            $values);
-    }
-
-    private function initPrimaryKey(): void
-    {
-        $sql = "SHOW KEYS FROM `{$this->tableName()}` WHERE `Key_name` = 'PRIMARY'";
-        $stmt = $this->db->query($sql, PDO::FETCH_ASSOC);
-        $data = $stmt->fetch();
-
-        if (!isset($data['Column_name'])) {
-            throw new RuntimeException("Table '{$this->tableName()}' has no primary key");
-        }
-
-        $this->primaryKey = $data['Column_name'];
-        $this->securedFields[] = $this->primaryKey;
     }
 
     /**
@@ -133,7 +71,7 @@ SQL;
         return $this->isNewRecord ? $this->insert() : $this->update();
     }
 
-    public function delete(): bool
+    public function delete()
     {
         $sql = "DELETE FROM `{$this->tableName()}` WHERE `{$this->primaryKey}` = :id LIMIT 1";
         $stmt = $this->db->prepare($sql);
@@ -171,13 +109,8 @@ SQL;
         $params = [
             $this->primaryKey => $this->attributes[$this->primaryKey],
         ];
-
         foreach ($this->attributes as $attribute => $value) {
             if (in_array($attribute, $this->securedFields, true)) {
-                continue;
-            }
-
-            if (!$this->flags_attributes[$attribute]){
                 continue;
             }
 
@@ -185,9 +118,9 @@ SQL;
             $params[$attribute] = $value;
         }
         $fields = implode(', ', $values);
+
         $sql = "UPDATE `{$this->tableName()}` SET {$fields} WHERE `{$this->primaryKey}` = :{$this->primaryKey} LIMIT 1";
         $stmt = $this->db->prepare($sql);
-        $this->resetFlags();
         return $stmt->execute($params);
     }
 
@@ -207,9 +140,6 @@ SQL;
         }
 
         $this->attributes[$key] = $value;
-        if(!$this->isInit()) {
-            $this->flags_attributes[$key] = true;
-        }
     }
 
     public function __isset(string $key): bool
@@ -217,25 +147,46 @@ SQL;
         return array_key_exists($key, $this->attributes);
     }
 
-    /**
-     * @return bool
-     */
-    public function isInit(): bool
+    private function setAttributes(array $data): void
     {
-        return $this->isInit;
+        $this->isNewRecord = false;
+        foreach ($data as $key => $value) {
+            $this->{$key} = $value;
+        }
     }
 
-    /**
-     * @param bool $isInit
-     */
-    public function setIsInit(bool $isInit): void
+    private function initAttributes(): void
     {
-        $this->isInit = $isInit;
+        $dbName = App::get()->db()->getDb();
+        $sql = <<<SQL
+            SELECT `COLUMN_NAME` 
+            FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+            WHERE `TABLE_SCHEMA` = '{$dbName}' AND `TABLE_NAME` = '{$this->tableName()}'
+            ORDER BY `ORDINAL_POSITION`
+        SQL;
+
+        $stmt = $this->db->query($sql, PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll();
+
+        $keys = array_column($data, 'COLUMN_NAME');
+        $values = array_fill(0, count($data), null);
+        $this->attributes = array_combine($keys, $values);
+
+        $this->isNewRecord = true;
     }
 
-    public function __wakeup(): void
+    private function initPrimaryKey(): void
     {
-        $this->db = App::get()->db()->getConnect();
+        $sql = "SHOW KEYS FROM `{$this->tableName()}` WHERE `Key_name` = 'PRIMARY'";
+        $stmt = $this->db->query($sql, PDO::FETCH_ASSOC);
+        $data = $stmt->fetch();
+
+        if (!isset($data['Column_name'])) {
+            throw new RuntimeException("Table '{$this->tableName()}' has no primary key");
+        }
+
+        $this->primaryKey = $data['Column_name'];
+        $this->securedFields[] = $this->primaryKey;
     }
 
     public function __sleep(): array
@@ -248,5 +199,8 @@ SQL;
         ];
     }
 
-
+    public function __wakeup(): void
+    {
+        $this->db = App::get()->db()->getConnect();
+    }
 }

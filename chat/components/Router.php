@@ -34,7 +34,6 @@ class Router
         $class = $this->dispatcher->getControllerPart();
         $class = StringHelpers::camelize($class);
         $class = App::get()->config()->get('controllersNamespace') . "\\{$class}Controller";
-
         if (!class_exists($class)) {
             throw new RuntimeException("Controller {$this->dispatcher->getControllerPart()} is not exists");
         }
