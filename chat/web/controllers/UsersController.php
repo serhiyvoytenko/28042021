@@ -3,11 +3,12 @@
 namespace web\controllers;
 
 use App;
-use components\AbstractController;
+use web\components\AbstractWebController;
+
 //use models\UserContactEntity;
 //use models\UserEntity;
 
-class UsersController extends AbstractController
+class UsersController extends AbstractWebController
 {
     public function actionList(): void
     {
@@ -47,14 +48,20 @@ class UsersController extends AbstractController
 //        exit;
 
 
-        // SELECT
+//        // SELECT
 //        var_dump(
-//            UserEntity::findOne(11),
-//            UserEntity::findOne(110),
-//            UserContactEntity::findOne(3),
-////            UserContactEntity::findAll()
-//        );exit;
+////            UserEntity::findOne(11),
+////            UserEntity::findOne(110),
+////            UserContactEntity::findOne(3),
+//            UserContactEntity::findAll()
+//        );
         $t = App::get()->template()?->render('users/list');
         echo($t);
+    }
+
+    public function actionLogout(): void
+    {
+        App::get()->session()?->reset();
+        $this->redirect(App::get()->config()->get('loginPage'));
     }
 }

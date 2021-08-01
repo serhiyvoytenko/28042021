@@ -3,7 +3,6 @@
 namespace web\components;
 
 use App;
-use components\Session;
 use models\UserEntity;
 
 class User
@@ -25,9 +24,9 @@ class User
     public function login(UserEntity $userEntity): void
     {
         App::get()->session()?->set(self::USER_KEY, $userEntity);
-//        var_dump(App::get()->session()?->get(self::USER_KEY));exit();
+        $this->user = $userEntity;
         $this->isGuest = false;
-//var_dump($this->isGuest, App::get()->session()->get('user'), App::get()->session());
+//        var_dump($_SESSION, $this->user, $this->isGuest);
     }
 
     public function logout(): void

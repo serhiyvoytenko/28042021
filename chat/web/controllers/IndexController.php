@@ -3,7 +3,6 @@
 
 namespace web\controllers;
 
-use App;
 use web\components\AbstractWebController;
 
 class IndexController extends AbstractWebController

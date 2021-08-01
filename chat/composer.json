@@ -2,7 +2,8 @@
   "name": "root/chat",
   "minimum-stability": "stable",
   "require": {
-    "cboden/ratchet": "^0.4.3"
+    "cboden/ratchet": "^0.4.3",
+    "ext-pdo": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest"

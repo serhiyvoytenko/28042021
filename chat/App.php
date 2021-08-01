@@ -43,11 +43,10 @@ final class App
             ->setSession()
             ->setTemplate()
             ->setUser()
-//        var_dump(self::$instance);exit();
             ->setRouter();
 
         self::$instance->router()->init();
-//var_dump(self::$instance);
+
         return self::$instance;
     }
 

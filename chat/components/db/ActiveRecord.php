@@ -233,5 +233,20 @@ SQL;
         $this->isInit = $isInit;
     }
 
+    public function __wakeup(): void
+    {
+        $this->db = App::get()->db()->getConnect();
+    }
+
+    public function __sleep(): array
+    {
+        return [
+            'securedFields',
+            'primaryKey',
+            'attributes',
+            'isNewRecord',
+        ];
+    }
+
 
 }

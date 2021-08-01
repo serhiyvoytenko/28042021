@@ -3,6 +3,7 @@
 
 namespace web\components;
 
+use App;
 use components\AbstractController;
 use helpers\ComponentsTrait;
 
@@ -12,20 +13,21 @@ abstract class AbstractWebController extends AbstractController
 
     public function __construct()
     {
-        $guestPages = $this->config()->get('guestPages');
-        $currentPage = $this->router()->getCurrentPage();
-        if ($this->user()->isGuest() && !in_array($currentPage, $guestPages, true))
+        $guestPages = App::get()->config()->get('guestPages');
+        $currentPage = App::get()->router()->getCurrentPage();
+        if (App::get()->user()->isGuest() && !in_array($currentPage, $guestPages, true))
         {
 //            var_dump($this->user()->isGuest(), in_array($currentPage, $guestPages, true));
-            $this->redirect($this->config()->get('loginPage'));
+            $this->redirect(App::get()->config()->get('loginPage'));
         }
     }
 
     protected function redirect(string $url, int $status = 301, bool $terminate = true): void
     {
-//        var_dump($url, $terminate);
+//        var_dump($url, $status, $_SESSION);
         header("Location: {$url}", true, $status);
         if ($terminate) {
+//            var_dump($_SESSION);
             exit;
         }
 

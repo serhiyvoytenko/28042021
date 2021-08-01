@@ -26,4 +26,9 @@ class UserEntity extends ActiveRecord
     {
         return 'users';
     }
+
+    public function getName(): string
+    {
+        return $this->name ?: $this->login;
+    }
 }
