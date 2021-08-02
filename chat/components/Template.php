@@ -39,7 +39,9 @@ class Template
     {
         extract($vars, EXTR_PREFIX_SAME, $this->existedVariablePrefix);
 
+
         $templateFile = $this->getTemplateFile($template);
+//        var_dump($errors);
         ob_start();
         require $templateFile;
         $content = ob_get_clean();

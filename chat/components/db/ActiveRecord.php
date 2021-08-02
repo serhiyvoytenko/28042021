@@ -147,8 +147,11 @@ abstract class ActiveRecord
         return array_key_exists($key, $this->attributes);
     }
 
-    private function setAttributes(array $data): void
+    private function setAttributes(bool|array $data): void
     {
+        if (!$data) {
+            return;
+        }
         $this->isNewRecord = false;
         foreach ($data as $key => $value) {
             $this->{$key} = $value;
