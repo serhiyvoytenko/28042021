@@ -20,7 +20,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><?= App::get()->user()->entity()->getName(); ?></a>
+        <a class="navbar-brand" href="/"><?= App::get()->user()->entity()->getName(); ?></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,5 +46,11 @@
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
+<script src="/web/public/chat.js"></script>
+<script>
+    $('.messaging').initChat(
+        <?= App::get()->user()->entity()->id ?>
+    );
+</script>
 </body>
 </html>
