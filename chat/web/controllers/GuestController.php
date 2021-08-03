@@ -27,7 +27,7 @@ class GuestController extends AbstractWebController
     public function actionRegistration(): void
     {
         $errors = [];
-        if (RequestHelper::isPost()){
+        if (RequestHelper::isPost()) {
             $user = UserEntity::findOne($_POST['login'], 'login');
             if ($user->login) {
                 $errors['login'] = 'This login exists';
@@ -36,7 +36,9 @@ class GuestController extends AbstractWebController
                 $newUser->login = $_POST['login'];
                 $newUser->password = $_POST['password'];
                 $newUser->save();
-            }else {
+                echo App::get()->template()?->render('guest/success', [], 'guest');
+                exit();
+            } else {
                 $errors['errorRegister'] = 'Incorrect values!';
             }
 
@@ -44,4 +46,10 @@ class GuestController extends AbstractWebController
 
         echo App::get()->template()?->render('guest/registration', ['errors' => $errors], 'guest');
     }
+
+    public function actionSuccess(): void
+    {
+        var_dump('Success!');
+    }
 }
+
