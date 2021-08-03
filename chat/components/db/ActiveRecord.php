@@ -86,14 +86,14 @@ abstract class ActiveRecord
     private function insert(): bool
     {
         $attributes = $this->attributes;
-        unset($attributes[$this->primaryKey]);
-
+        unset($attributes[$this->primaryKey],$attributes['create_at'],$attributes['update']);
         $keys = array_keys($attributes);
         $fields = implode('`, `', $keys);
         $aliases = implode(', :', $keys);
 
         $sql = "INSERT INTO `{$this->tableName()}` (`{$fields}`) VALUES (:{$aliases})";
         $stmt = $this->db->prepare($sql);
+//        var_dump($attributes);
         $isOk = $stmt->execute($attributes);
         if ($isOk) {
             $this->{$this->primaryKey} = $this->db->lastInsertId();

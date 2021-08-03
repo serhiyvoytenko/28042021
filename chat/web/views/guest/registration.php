@@ -16,9 +16,9 @@
                    id="floatingInput"
                    placeholder="Login">
             <label class="mx-2" for="floatingInput">Login</label>
-<!--            --><?php //if (array_key_exists('login', $errors)): ?>
-<!--                <span class="text-danger">--><?php //echo $errors['login'] ?><!--</span>-->
-<!--            --><?php //endif ?>
+            <?php if (array_key_exists('login', $errors)): ?>
+                <span class="text-danger"><?php echo $errors['login'] ?></span>
+            <?php endif ?>
         </div>
         <div class="form-floating mb-3">
             <input type="password"
@@ -38,9 +38,9 @@
                    id="floatingRepeatPassword"
                    placeholder="Repeat Password">
             <label class="mx-2" for="floatingRepeatPassword">Repeat Password</label>
-<!--            --><?php //if (array_key_exists('repeatPassword', $errors)): ?>
-<!--                <span class="text-danger">--><?php //echo $errors['repeatPassword'] ?><!--</span>-->
-<!--            --><?php //endif ?>
+            <?php if (array_key_exists('errorRegister', $errors)): ?>
+                <span class="text-danger"><?php echo $errors['errorRegister'] ?></span>
+            <?php endif ?>
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
