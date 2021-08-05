@@ -2,8 +2,8 @@
     <div class="inbox_msg">
         <div class="inbox_people">
             <div class="headind_srch">
-                <div class="recent_heading">
-                    <h4>Recent</h4>
+                <div>
+                    <h4>Rooms <a class="btn btn-success btn-sm float-end" href="/rooms/create">Add Rooms</a> </h4>
                 </div>
             </div>
             <div class="inbox_chat">

@@ -34,7 +34,7 @@ class GuestController extends AbstractWebController
             } elseif ($_POST['password'] === $_POST['repeatPassword']) {
                 $newUser = new UserEntity();
                 $newUser->login = $_POST['login'];
-                $newUser->password = $_POST['password'];
+                $newUser->password = password_hash($_POST['password'], PASSWORD_BCRYPT);
                 $newUser->save();
                 echo App::get()->template()?->render('guest/success', [], 'guest');
                 exit();

@@ -86,7 +86,7 @@ abstract class ActiveRecord
     private function insert(): bool
     {
         $attributes = $this->attributes;
-        unset($attributes[$this->primaryKey],$attributes['create_at'],$attributes['update']);
+        unset($attributes[$this->primaryKey],$attributes['create_at'],$attributes['update'], $attributes['created_at']);
         $keys = array_keys($attributes);
         $fields = implode('`, `', $keys);
         $aliases = implode(', :', $keys);
