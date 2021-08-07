@@ -49,11 +49,13 @@ abstract class ActiveRecord
     /**
      * @return static[]
      */
-    public static function findAll(): array
+    public static function findAll(?string $orderBy = null, int $order = SORT_ASC): array
     {
         $entity = new static();
+        $orderBy = $orderBy?:$entity->primaryKey;
+        $orderDirection = $order === SORT_ASC ? 'ASC' : 'DESC';
 
-        $sql = "SELECT * FROM `{$entity->tableName()}`";
+        $sql = "SELECT * FROM `{$entity->tableName()}` ORDER BY {$orderBy} {$orderDirection}";
         $stmt = App::get()->db()->getConnect()->query($sql);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -86,7 +88,9 @@ abstract class ActiveRecord
     private function insert(): bool
     {
         $attributes = $this->attributes;
-        unset($attributes[$this->primaryKey],$attributes['create_at'],$attributes['update'], $attributes['created_at']);
+        unset($attributes[$this->primaryKey]);
+        $attributes = array_filter($attributes);
+
         $keys = array_keys($attributes);
         $fields = implode('`, `', $keys);
         $aliases = implode(', :', $keys);

@@ -1,88 +1,48 @@
+<?php
+
+use models\RoomEntity;
+
+/**
+ * @var RoomEntity[] $rooms
+ *
+ */
+
+?>
+
 <div class="messaging">
     <div class="inbox_msg">
         <div class="inbox_people">
             <div class="headind_srch">
                 <div>
-                    <h4>Rooms <a class="btn btn-success btn-sm float-end" href="/rooms/create">Add Rooms</a> </h4>
+                    <h4>Rooms <a class="btn btn-success btn-sm float-end" href="/rooms/create">Add Rooms</a></h4>
                 </div>
             </div>
+
             <div class="inbox_chat">
-                <div class="chat_list active_chat">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
+                <?php foreach ($rooms as $room): ?>
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
+                                                       alt="sunil">
+                            </div>
+                            <div class="chat_ib">
+                                <h5><?= $room->title ?><span
+                                            class="chat_date"><?= (new DateTime($room->created_at))->format('M d') ?></span>
+                                </h5>
+                                <p>Test, which is a new approach to have all solutions
+                                    astrology under one roof.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat_list">
-                    <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                            <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                            <p>Test, which is a new approach to have all solutions
-                                astrology under one roof.</p>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
+
         </div>
         <div class="mesgs">
             <div class="msg_history">
                 <div class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
+                                                       alt="sunil"></div>
                     <div class="received_msg">
                         <div class="received_withd_msg">
                             <p>Test which is a new approach to have all
@@ -94,10 +54,11 @@
                     <div class="sent_msg">
                         <p>Test which is a new approach to have all
                             solutions</p>
-                        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                        <span class="time_date"> 11:01 AM    |    June 9</span></div>
                 </div>
                 <div class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
+                                                       alt="sunil"></div>
                     <div class="received_msg">
                         <div class="received_withd_msg">
                             <p>Test, which is a new approach to have</p>
@@ -107,10 +68,11 @@
                 <div class="outgoing_msg">
                     <div class="sent_msg">
                         <p>Apollo University, Delhi, India Test</p>
-                        <span class="time_date"> 11:01 AM    |    Today</span> </div>
+                        <span class="time_date"> 11:01 AM    |    Today</span></div>
                 </div>
                 <div class="incoming_msg">
-                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="incoming_msg_img"><img src="https://ptetutorials.com/images/user-profile.png"
+                                                       alt="sunil"></div>
                     <div class="received_msg">
                         <div class="received_withd_msg">
                             <p>We work directly with our designers and suppliers,
@@ -122,14 +84,17 @@
             </div>
             <div class="type_msg">
                 <div class="input_msg_write">
-                    <input type="text" class="write_msg" placeholder="Type a message" />
-                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <input type="text" class="write_msg" placeholder="Type a message"/>
+                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <p class="text-center top_spac"> Design by <a target="_blank" href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></p>
+    <p class="text-center top_spac"> Design by <a target="_blank"
+                                                  href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil
+            Rajput</a></p>
 
 </div>
