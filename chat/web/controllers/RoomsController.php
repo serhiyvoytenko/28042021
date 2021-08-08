@@ -23,4 +23,11 @@ class RoomsController extends AbstractWebController
         }
         $this->render('rooms/create');
     }
+
+    public function actionGetMessages(): void
+    {
+        $roomId = $_GET['room_id'] ?? 0;
+        $messages = RoomEntity::getMessagesByRoom($roomId);
+        echo json_encode($messages);
+    }
 }

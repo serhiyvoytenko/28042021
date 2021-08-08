@@ -20,7 +20,7 @@ use models\RoomEntity;
 
             <div class="inbox_chat">
                 <?php foreach ($rooms as $room): ?>
-                    <div class="chat_list">
+                    <div class="chat_list" data-room-id="<?= $room->id ?>">
                         <div class="chat_people">
                             <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
                                                        alt="sunil">
