@@ -64,4 +64,9 @@ class UsersController extends AbstractWebController
         App::get()->session()?->reset();
         $this->redirect(App::get()->config()->get('loginPage'));
     }
+
+    public function actionProfile(): void
+    {
+        echo App::get()->template()?->render('users/profile');
+    }
 }

@@ -3,6 +3,7 @@
 namespace cli\components;
 
 use Exception;
+use JetBrains\PhpStorm\Pure;
 use models\MessageEntity;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
@@ -12,7 +13,7 @@ class WebSocket implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->clients = new SplObjectStorage();
     }
@@ -36,7 +37,7 @@ class WebSocket implements MessageComponentInterface
     /**
      * @inheritDoc
      */
-    public function onError(ConnectionInterface $conn, \Exception $e): void
+    public function onError(ConnectionInterface $conn, Exception $e): void
     {
         $conn->close();
     }
@@ -53,8 +54,9 @@ class WebSocket implements MessageComponentInterface
         $message->text = $data['text'];
         $message->created_at = $data['time'];
         $message->save();
+
         foreach ($this->clients as $client){
-            $client->send($msg);
+            $client->send(json_encode($message->toArray()));
         }
     }
 }

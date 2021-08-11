@@ -210,4 +210,9 @@ abstract class ActiveRecord
     {
         $this->db = App::get()->db()->getConnect();
     }
+
+    public function toArray(): array
+    {
+        return $this->attributes;
+    }
 }

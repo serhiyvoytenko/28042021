@@ -30,6 +30,9 @@
                     <a class="nav-link" aria-current="page" href="/users/list">All Contacts</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/users/profile">My Profile</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/users/logout">Sign Out</a>
                 </li>
             </ul>

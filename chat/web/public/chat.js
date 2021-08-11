@@ -17,19 +17,18 @@
             e.preventDefault();
 
             let input = $(this).siblings('input');
-
             let message = JSON.stringify({
                 text: input.val(),
                 time: Math.floor(new Date().getTime() / 1000),
                 options: options
             });
-
             webSocket.send(message);
 
             input.val('');
         },
         acceptMessage: function (e) {
             let message = JSON.parse(e.data);
+            console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
             let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
@@ -43,7 +42,7 @@
             let messagesList = $('body').find('.msg_history');
             messagesList.animate({scrollTop: messagesList.outerHeight()},"fast");
         },
-        renderIncomingMessage(data) {
+        renderIncomingMessage: function (data) {
             return $('<div/>')
                 .addClass('incoming_msg')
                 .append(
@@ -75,7 +74,7 @@
                         )
                 );
         },
-        renderOutgoingMessage(data) {
+        renderOutgoingMessage: function (data) {
             return $('<div/>')
                 .addClass('outgoing_msg')
                 .append(
@@ -143,9 +142,7 @@
     $.fn.initChat = function(authorId) {
         layout = $(this);
         options.authorId = authorId;
-
         methods.initConnection();
-
         $(this).find('.input_msg_write')
             .on('click', '.msg_send_btn', methods.sendMessage)
             .on('keydown', function (e) {

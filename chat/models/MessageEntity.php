@@ -22,4 +22,5 @@ class MessageEntity extends ActiveRecord
     {
         return 'messages';
     }
+
 }
