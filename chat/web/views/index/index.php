@@ -31,6 +31,7 @@ use models\RoomEntity;
                                 </h5>
                                 <p>Test, which is a new approach to have all solutions
                                     astrology under one roof.</p>
+                               <div><a class="btn btn-success btn-sm float-end" href="/rooms/create">Edit</a></div>
                             </div>
                         </div>
                     </div>
