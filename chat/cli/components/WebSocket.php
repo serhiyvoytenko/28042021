@@ -2,9 +2,11 @@
 
 namespace cli\components;
 
+use App;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use models\MessageEntity;
+use models\UserEntity;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use SplObjectStorage;
@@ -54,9 +56,12 @@ class WebSocket implements MessageComponentInterface
         $message->text = $data['text'];
         $message->created_at = $data['time'];
         $message->save();
+        $user = ['userName' => UserEntity::findOne($data['options']['authorId'])->getName()];
 
-        foreach ($this->clients as $client){
-            $client->send(json_encode($message->toArray()));
+        foreach ($this->clients as $client) {
+            $messages = $message->toArray();
+            $fullMessage = array_merge($user, $messages);
+            $client->send(json_encode($fullMessage));
         }
     }
 }

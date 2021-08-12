@@ -3,7 +3,8 @@
   "minimum-stability": "stable",
   "require": {
     "cboden/ratchet": "^0.4.3",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "ext-fileinfo": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest"

@@ -3,6 +3,8 @@
 namespace web\controllers;
 
 use App;
+use helpers\RequestHelper;
+use models\UserEntity;
 use web\components\AbstractWebController;
 
 //use models\UserContactEntity;
@@ -67,6 +69,33 @@ class UsersController extends AbstractWebController
 
     public function actionProfile(): void
     {
+        if (RequestHelper::isPost() && isset($_FILES['avatar'])) {
+//            var_dump($_FILES);
+            $avatarsDir = __DIR__ . '/../public/images/avatars/';
+            if (mime_content_type($_FILES['avatar']['tmp_name']) === 'image/jpeg') {
+
+                $nameFile = App::get()->user()->getLogin();
+                move_uploaded_file($_FILES['avatar']['tmp_name'],
+                    $avatarsDir . $nameFile . '.jpeg');
+            }
+        }
         echo App::get()->template()?->render('users/profile');
     }
+
+    public function actionAvatar(): void
+    {
+        $idUser = $_GET['id'];
+        $allUser = UserEntity::findAll();
+        foreach ($allUser as $user) {
+            if ($user->id === $idUser) {
+                $avatar = __DIR__.'/../public/images/avatars/'.$user->login . '.jpeg';
+                header('Content-Type: image/jpeg');
+                echo (file_exists($avatar))?
+                file_get_contents(__DIR__.'/../public/images/avatars/'.$user->login . '.jpeg'):
+                    file_get_contents(__DIR__.'/../public/images/avatars/default.png');
+            }
+        }
+    }
+
+
 }

@@ -31,4 +31,5 @@ class UserEntity extends ActiveRecord
     {
         return $this->name ?: $this->login;
     }
+
 }

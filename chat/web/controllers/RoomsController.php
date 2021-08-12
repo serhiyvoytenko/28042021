@@ -6,6 +6,7 @@ namespace web\controllers;
 use helpers\ComponentsTrait;
 use helpers\RequestHelper;
 use models\RoomEntity;
+use models\UserEntity;
 use web\components\AbstractWebController;
 
 class RoomsController extends AbstractWebController
@@ -28,6 +29,10 @@ class RoomsController extends AbstractWebController
     {
         $roomId = $_GET['room_id'] ?? 0;
         $messages = RoomEntity::getMessagesByRoom($roomId);
+        foreach ($messages as $key=>$message){
+            $messages[$key]['userName'] = UserEntity::findOne($message['user_id'])->getName();
+        }
+//        var_dump($messages);
         echo json_encode($messages);
     }
 }

@@ -45,4 +45,9 @@ class User
     {
         return $this->user;
     }
+
+    public function getLogin(): string
+    {
+        return $this->user->login;
+    }
 }

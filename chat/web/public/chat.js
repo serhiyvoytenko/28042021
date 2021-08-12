@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
     const WS_ADDRESS = 'ws://ws.skillup.local:3000/chat';
 
     let layout;
@@ -28,7 +28,7 @@
         },
         acceptMessage: function (e) {
             let message = JSON.parse(e.data);
-            console.log(message);
+            // console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
             let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
@@ -40,25 +40,30 @@
         },
         scrollMessages: function () {
             let messagesList = $('body').find('.msg_history');
-            messagesList.animate({scrollTop: messagesList.outerHeight()},"fast");
+            messagesList.animate({scrollTop: messagesList.outerHeight()}, "fast");
         },
         renderIncomingMessage: function (data) {
+            // console.log(data);
             return $('<div/>')
-                .addClass('incoming_msg')
+                .addClass('incoming_msg mb-3')
                 .append(
                     $('<div/>')
                         .addClass('incoming_msg_img')
                         .append(
                             $('<img/>')
                                 .attr({
-                                    src: 'https://ptetutorials.com/images/user-profile.png',
-                                    alt: 'sunil'
+                                    src: '/users/avatar?id=' + data['user_id'],
+                                    alt: 'sunil',
+                                    class: 'rounded-circle'
                                 })
                         )
                 )
                 .append(
                     $('<div/>')
                         .addClass('received_msg')
+                        .append($('<p/>')
+                            .addClass('time_date')
+                            .text(data['userName']))
                         .append(
                             $('<div/>')
                                 .addClass('received_withd_msg')
@@ -70,11 +75,12 @@
                                         .addClass('time_date')
                                         .text(methods.formatDate(data['created_at']))
                                 )
-
                         )
-                );
+                )
+                ;
         },
         renderOutgoingMessage: function (data) {
+            // console.log(data)
             return $('<div/>')
                 .addClass('outgoing_msg')
                 .append(
@@ -107,7 +113,7 @@
                 'December'
             ];
 
-            return date.getHours() + ':' + date.getMinutes() + ' | ' + monthNames[date.getMonth()]  + '  ' + date.getDay();
+            return date.getHours() + ':' + date.getMinutes() + ' | ' + monthNames[date.getMonth()] + '  ' + date.getDay();
         },
         selectRoom: function (e) {
             e.stopPropagation();
@@ -125,6 +131,7 @@
                 method: 'get',
                 contentType: 'json',
                 success: function (data) {
+                    console.log(data)
                     let messages = JSON.parse(data);
                     $.each(messages, function (i, message) {
                         let html = parseInt(message['user_id']) === options.authorId
@@ -139,7 +146,7 @@
     };
 
 
-    $.fn.initChat = function(authorId) {
+    $.fn.initChat = function (authorId) {
         layout = $(this);
         options.authorId = authorId;
         methods.initConnection();
@@ -159,4 +166,4 @@
         return this;
     };
 
-}( $ ));
+}($));
