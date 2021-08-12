@@ -35,4 +35,9 @@ class RoomsController extends AbstractWebController
 //        var_dump($messages);
         echo json_encode($messages);
     }
+
+    public function actionEdit(): void
+    {
+        var_dump($_GET);
+    }
 }

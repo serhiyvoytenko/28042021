@@ -31,10 +31,11 @@ use models\RoomEntity;
                                 </h5>
                                 <p>Test, which is a new approach to have all solutions
                                     astrology under one roof.</p>
-                               <div><a class="btn btn-success btn-sm float-end" href="/rooms/create">Edit</a></div>
                             </div>
                         </div>
                     </div>
+                    <div class="headind_srch"><a class="btn btn-outline-secondary btn-sm float-end"
+                                                 href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a></div>
                 <?php endforeach; ?>
             </div>
 
@@ -43,8 +44,9 @@ use models\RoomEntity;
             <div class="msg_history"></div>
             <div class="type_msg">
                 <div class="input_msg_write">
-                    <input type="text" class="write_msg" placeholder="Type a message" />
-                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <input type="text" class="write_msg" placeholder="Type a message"/>
+                    <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
