@@ -20,5 +20,5 @@
     <h5>
         Delete room
     </h5>
-    <a href="" class="btn btn-danger mt-2">Delete room</a>
+    <a href="/rooms/delete?roomId=<?= $_GET['roomId']?>" class="btn btn-danger mt-2">Delete room</a>
 </div>

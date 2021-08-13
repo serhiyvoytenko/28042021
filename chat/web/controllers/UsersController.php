@@ -70,7 +70,6 @@ class UsersController extends AbstractWebController
     public function actionProfile(): void
     {
         if (RequestHelper::isPost() && isset($_FILES['avatar'])) {
-//            var_dump($_FILES);
             $avatarsDir = __DIR__ . '/../public/images/avatars/';
             if (mime_content_type($_FILES['avatar']['tmp_name']) === 'image/jpeg') {
 

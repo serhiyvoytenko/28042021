@@ -3,6 +3,7 @@
 
 namespace web\controllers;
 
+use App;
 use helpers\ComponentsTrait;
 use helpers\RequestHelper;
 use models\RoomEntity;
@@ -38,10 +39,26 @@ class RoomsController extends AbstractWebController
 
     public function actionEdit(): void
     {
-        var_dump($_GET,$_POST,$_FILES);
-        if(RequestHelper::isPost() && isset($_POST['logoRoom'])){
+//        var_dump($_GET,$_POST,$_FILES);
+        if (RequestHelper::isPost() && isset($_FILES['logoRoom'])) {
+            $logoRoomDir = __DIR__ . '/../public/images/logo_rooms/';
+            if (mime_content_type($_FILES['logoRoom']['tmp_name']) === 'image/jpeg') {
+                $nameFile = $_GET['roomId'];
+                move_uploaded_file($_FILES['logoRoom']['tmp_name'],
+                    $logoRoomDir . $nameFile . '.jpeg');
+            }
             $this->redirect($this->config()->get('mainPage'));
         }
         $this->render('rooms/edit');
+    }
+
+    public function actionDelete(): void
+    {
+        if(isset($_GET['roomId'])){
+            $room = new RoomEntity();
+            $room->id = $_GET['roomId'];
+            $room->delete();
+            $this->redirect($this->config()->get('mainPage'));
+        }
     }
 }

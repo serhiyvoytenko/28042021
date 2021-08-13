@@ -2,6 +2,8 @@
 
 use models\RoomEntity;
 
+$dirLogo = __DIR__ . '/../../public/images/logo_rooms/';
+
 /**
  * @var RoomEntity[] $rooms
  *
@@ -22,8 +24,9 @@ use models\RoomEntity;
                 <?php foreach ($rooms as $room): ?>
                     <div class="chat_list" data-room-id="<?= $room->id ?>">
                         <div class="chat_people">
-                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                       alt="sunil">
+                            <div class="chat_img"><img
+                                        src="/web/public/images/logo_rooms/<?php echo file_exists($dirLogo . $room->id . '.jpeg') ? $room->id . '.jpeg' : 'default.png' ?>"
+                                        class="rounded-circle" alt="Logo room">
                             </div>
                             <div class="chat_ib">
                                 <h5><?= $room->title ?><span
@@ -34,8 +37,9 @@ use models\RoomEntity;
                             </div>
                         </div>
                     </div>
-                    <div class="headind_srch" setting-room-id="<?= $room->id ?>"><a class="btn btn-outline-secondary btn-sm float-end"
-                                                 href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a>
+                    <div class="headind_srch" setting-room-id="<?= $room->id ?>"><a
+                                class="btn btn-outline-secondary btn-sm float-end"
+                                href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -52,10 +56,4 @@ use models\RoomEntity;
             </div>
         </div>
     </div>
-
-
-    <p class="text-center top_spac"> Design by <a target="_blank"
-                                                  href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil
-            Rajput</a></p>
-
 </div>
