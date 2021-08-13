@@ -40,7 +40,7 @@
                     <a class="nav-link" aria-current="page" href="/users/logout">Sign Out</a>
                 </li>
                 <li>
-                    <img class="rounded-circle" src="/users/avatar?id=<?= App::get()->user()->entity()->id ?>"
+                    <img class="rounded-circle" src="/users/get-avatar?id=<?= App::get()->user()->entity()->id ?>"
                          width="30" height="30" alt="">
                 </li>
             </ul>

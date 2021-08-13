@@ -34,8 +34,9 @@ use models\RoomEntity;
                             </div>
                         </div>
                     </div>
-                    <div class="headind_srch"><a class="btn btn-outline-secondary btn-sm float-end"
-                                                 href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a></div>
+                    <div class="headind_srch" setting-room-id="<?= $room->id ?>"><a class="btn btn-outline-secondary btn-sm float-end"
+                                                 href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a>
+                    </div>
                 <?php endforeach; ?>
             </div>
 

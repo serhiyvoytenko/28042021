@@ -52,7 +52,7 @@
                         .append(
                             $('<img/>')
                                 .attr({
-                                    src: '/users/avatar?id=' + data['user_id'],
+                                    src: '/users/get-avatar?id=' + data['user_id'],
                                     alt: 'sunil',
                                     class: 'rounded-circle'
                                 })
@@ -123,7 +123,9 @@
             options.roomId = room.data('roomId');
 
             room.siblings('.chat_list').removeClass('active_chat');
+            room.siblings('.chat_list').next().removeClass('active_chat');
             room.addClass('active_chat');
+            room.next().addClass('active_chat');
             $('.msg_history').html('');
 
             $.ajax({

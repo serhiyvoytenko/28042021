@@ -38,6 +38,10 @@ class RoomsController extends AbstractWebController
 
     public function actionEdit(): void
     {
-        var_dump($_GET);
+        var_dump($_GET,$_POST,$_FILES);
+        if(RequestHelper::isPost() && isset($_POST['logoRoom'])){
+            $this->redirect($this->config()->get('mainPage'));
+        }
+        $this->render('rooms/edit');
     }
 }

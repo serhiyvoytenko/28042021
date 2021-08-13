@@ -82,7 +82,7 @@ class UsersController extends AbstractWebController
         echo App::get()->template()?->render('users/profile');
     }
 
-    public function actionAvatar(): void
+    public function actionGetAvatar(): void
     {
         $idUser = $_GET['id'];
         $allUser = UserEntity::findAll();
