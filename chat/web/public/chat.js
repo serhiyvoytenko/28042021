@@ -99,7 +99,7 @@
                 );
         },
         formatDate: function (timestamp) {
-            let date = new Date(timestamp * 1000);
+            let date = new Date(timestamp*1000);
             const monthNames = [
                 'January',
                 'February',
@@ -115,7 +115,7 @@
                 'December'
             ];
 
-            return date.getHours() + ':' + date.getMinutes() + ' | ' + monthNames[date.getMonth()] + '  ' + date.getDay();
+            return date.getHours() + ':' + date.getMinutes() + ' | ' + monthNames[date.getMonth()] + '  ' + date.getDate();
         },
         selectRoom: function (e) {
             e.stopPropagation();
