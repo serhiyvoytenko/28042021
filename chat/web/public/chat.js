@@ -22,28 +22,31 @@
                 time: Math.floor(new Date().getTime() / 1000),
                 options: options
             });
+            console.log(message);
             webSocket.send(message);
 
             input.val('');
         },
         acceptMessage: function (e) {
             let message = JSON.parse(e.data);
-            // console.log(message);
+            console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
-            let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
+            let isMyRoom = message['room_id'] === options.roomId;
+            if (isMyRoom) {
+                let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
-            methods.drawMessage(html);
-            methods.scrollMessages();
+                methods.drawMessage(html);
+                methods.scrollMessages();
+            }
         },
         drawMessage: function (html) {
             $('.msg_history').append(html);
         },
         scrollMessages: function () {
             let messagesList = $('body').find('.msg_history');
-            messagesList.animate({scrollTop: messagesList.outerHeight()}, "fast");
+            messagesList.animate({scrollTop: messagesList.outerHeight()}, 'fast');
         },
         renderIncomingMessage: function (data) {
-            // console.log(data);
             return $('<div/>')
                 .addClass('incoming_msg mb-3')
                 .append(
@@ -80,7 +83,6 @@
                 ;
         },
         renderOutgoingMessage: function (data) {
-            // console.log(data)
             return $('<div/>')
                 .addClass('outgoing_msg')
                 .append(
@@ -123,9 +125,7 @@
             options.roomId = room.data('roomId');
 
             room.siblings('.chat_list').removeClass('active_chat');
-            room.siblings('.chat_list').next().removeClass('active_chat');
             room.addClass('active_chat');
-            room.next().addClass('active_chat');
             $('.msg_history').html('');
 
             $.ajax({
@@ -133,7 +133,6 @@
                 method: 'get',
                 contentType: 'json',
                 success: function (data) {
-                    console.log(data)
                     let messages = JSON.parse(data);
                     $.each(messages, function (i, message) {
                         let html = parseInt(message['user_id']) === options.authorId

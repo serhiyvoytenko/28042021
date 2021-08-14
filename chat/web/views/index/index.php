@@ -35,11 +35,10 @@ $dirLogo = __DIR__ . '/../../public/images/logo_rooms/';
                                 <p>Test, which is a new approach to have all solutions
                                     astrology under one roof.</p>
                             </div>
+                            <a onclick="event.stopPropagation()"
+                               class="btn btn-outline-secondary btn-sm float-end"
+                               href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a>
                         </div>
-                    </div>
-                    <div class="headind_srch" setting-room-id="<?= $room->id ?>"><a
-                                class="btn btn-outline-secondary btn-sm float-end"
-                                href="/rooms/edit?roomId=<?= $room->id ?>">Setting room</a>
                     </div>
                 <?php endforeach; ?>
             </div>
