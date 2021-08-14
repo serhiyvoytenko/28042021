@@ -88,7 +88,7 @@ class UsersController extends AbstractWebController
         foreach ($allUser as $user) {
             if ($user->id === $idUser) {
                 $avatar = __DIR__.'/../public/images/avatars/'.$user->login . '.jpeg';
-                header('Content-Type: image/jpeg');
+//                header('Content-Type: image/jpeg');
                 echo (file_exists($avatar))?
                 file_get_contents(__DIR__.'/../public/images/avatars/'.$user->login . '.jpeg'):
                     file_get_contents(__DIR__.'/../public/images/avatars/default.png');
