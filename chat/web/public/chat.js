@@ -114,7 +114,6 @@
                 'November',
                 'December'
             ];
-
             return date.getHours() + ':' + date.getMinutes() + ' | ' + monthNames[date.getMonth()] + '  ' + date.getDate();
         },
         selectRoom: function (e) {
