@@ -22,7 +22,7 @@
                 time: Math.floor(new Date().getTime() / 1000),
                 options: options
             });
-            console.log(message);
+            // console.log(message);
             webSocket.send(message);
 
             input.val('');
