@@ -50,4 +50,9 @@ class User
     {
         return $this->user->login;
     }
+
+    public function getId(): int
+    {
+        return $this->user->id;
+    }
 }

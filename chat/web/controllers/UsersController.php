@@ -73,7 +73,7 @@ class UsersController extends AbstractWebController
             $avatarsDir = __DIR__ . '/../public/images/avatars/';
             if (mime_content_type($_FILES['avatar']['tmp_name']) === 'image/jpeg') {
 
-                $nameFile = App::get()->user()->getLogin();
+                $nameFile = App::get()->user()->getId();
                 move_uploaded_file($_FILES['avatar']['tmp_name'],
                     $avatarsDir . $nameFile . '.jpeg');
             }
@@ -83,17 +83,11 @@ class UsersController extends AbstractWebController
 
     public function actionGetAvatar(): void
     {
-        $idUser = $_GET['id'];
-        $allUser = UserEntity::findAll();
-        foreach ($allUser as $user) {
-            if ($user->id === $idUser) {
-                $avatar = __DIR__.'/../public/images/avatars/'.$user->login . '.jpeg';
-//                header('Content-Type: image/jpeg');
-                echo (file_exists($avatar))?
-                file_get_contents(__DIR__.'/../public/images/avatars/'.$user->login . '.jpeg'):
-                    file_get_contents(__DIR__.'/../public/images/avatars/default.png');
-            }
-        }
+        $nameFileAvatar = $_GET['id'].'.jpeg';
+        $dirAvatars = __DIR__.'/../public/images/avatars/';
+        echo (file_exists($dirAvatars.$nameFileAvatar))?
+                file_get_contents($dirAvatars.$nameFileAvatar):
+                    file_get_contents($dirAvatars.'default.png');
     }
 
 
