@@ -2,9 +2,7 @@
 
 namespace cli\components;
 
-use App;
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use models\MessageEntity;
 use models\UserEntity;
 use Ratchet\ConnectionInterface;
@@ -14,10 +12,12 @@ use SplObjectStorage;
 class WebSocket implements MessageComponentInterface
 {
     protected SplObjectStorage $clients;
+    protected array $subscribed;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->clients = new SplObjectStorage();
+        $this->subscribed = [];
     }
 
     /**
@@ -25,7 +25,9 @@ class WebSocket implements MessageComponentInterface
      */
     public function onOpen(ConnectionInterface $conn): void
     {
+//        var_dump($conn->httpRequest->getRequestTarget());
         $this->clients->attach($conn);
+        echo "New connect! {$conn->resourceId}\n";
     }
 
     /**
@@ -33,6 +35,7 @@ class WebSocket implements MessageComponentInterface
      */
     public function onClose(ConnectionInterface $conn): void
     {
+        unset($this->subscribed[$conn->resourceId]);
         $this->clients->detach($conn);
     }
 
@@ -50,18 +53,45 @@ class WebSocket implements MessageComponentInterface
     public function onMessage(ConnectionInterface $from, $msg): void
     {
         $data = json_decode($msg, true);
-        $message = new MessageEntity();
-        $message->user_id = $data['options']['authorId'];
-        $message->room_id = $data['options']['roomId'];
-        $message->text = $data['text'];
-        $message->created_at = $data['time'];
-        $message->save();
-        $user = ['userName' => UserEntity::findOne($data['options']['authorId'])->getName()];
 
-        foreach ($this->clients as $client) {
-            $messages = $message->toArray();
-            $fullMessage = array_merge($user, $messages);
-            $client->send(json_encode($fullMessage));
+        if (isset($data['subscribeAuthorId'])) {
+
+            $this->onSubscribe($data, $from->resourceId);
+
+        } else {
+            $message = new MessageEntity();
+            $message->user_id = $data['options']['authorId'];
+            $message->room_id = $data['options']['roomId'];
+            $message->text = $data['text'];
+            $message->created_at = $data['time'];
+            $message->save();
+            $user = ['userName' => UserEntity::findOne($data['options']['authorId'])->getName()];
+
+            foreach ($this->clients as $client) {
+                if (isset($this->subscribed[$client->resourceId]['subscribeRoomId']) &&
+                    $this->subscribed[$client->resourceId]['subscribeRoomId'] === $message->room_id) {
+
+                    var_dump($client->resourceId);
+                    $messages = $message->toArray();
+                    $fullMessage = array_merge($user, $messages);
+                    $client->send(json_encode($fullMessage));
+
+                }
+            }
         }
+    }
+
+    protected function onSubscribe(array $data, int $connId): void
+    {
+
+        if (isset($this->subscribed[$connId])) {
+
+            unset($this->subscribed[$connId]);
+        }
+
+        $this->subscribed[$connId] = [
+            'subscribeRoomId' => $data['subscribeRoomId'],
+            'subscribeAuthorId' => $data['subscribeAuthorId']
+        ];
     }
 }

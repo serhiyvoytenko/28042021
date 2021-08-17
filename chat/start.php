@@ -16,34 +16,27 @@
 <h4>This is H4</h4>
 <?php
 
-
-function power($arr, $exp): array
-{
-    // переменная $func будет хранить ссылку на объект класса Closure, который описывает наше замыкание
-    $func = static function ($el) use ($exp) {
-        return $el ** $exp;
-    };
-
-    return array_map($func, $arr);
-}
-
-$list = [1, 3, 4];
-
-var_dump(power($list, 2)); // Выведет: array(3) {[0]=>int(1) [1]=>int(9) [2]=>int(16)}
-var_dump(power($list, 3)); // Выведет: array(3) {[0]=>int(1) [1]=>int(27) [2]=>int(64)}
-
+var_dump(class_exists('ZMQContext'));
 ?>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-
+<script src="/web/public/autobahn.js"></script>
 <script>
-    $('h3').css({'color': 'green', 'font-weight': 'bolder'});
-    $('.zzz').css('color', 'red');
-    $(':header').css('color', 'blue');
-    $(':header:not(.zzz)').css('color', 'orange');
-    console.log($("<p>My first jQuery text</p>"));
+    var conn = new ab.Session(
+        'ws://ws.skillup.local:3000/chat',
+        function () {
+            conn.subscribe('kittensCategory', function (topic, data) {
+                // This is where you would add the new article to the DOM (beyond the scope of this tutorial)
+                console.log('New article published to category "' + topic + '" : ' + data.title);
+            });
+        },
+        function () {
+            console.warn('WebSocket connection closed');
+        },
+        {
+            'skipSubprotocolCheck': true
+        }
+    );
 </script>
+
 </body>
 </html>
