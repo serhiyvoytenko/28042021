@@ -48,11 +48,12 @@ class WebSocket implements MessageComponentInterface
 
     /**
      * @inheritDoc
+     *
      */
     public function onMessage(ConnectionInterface $from, $msg): void
     {
         $data = json_decode($msg, true);
-
+        var_dump($data,$this->getSubscribe());
         if (isset($data['subscribeAuthorId'])) {
 
             $this->onSubscribe($data, $from->resourceId);
@@ -81,8 +82,8 @@ class WebSocket implements MessageComponentInterface
 
     protected function onSubscribe(array $data, int $connId): void
     {
-
-        if (isset($this->subscribed[$connId])) {
+//        var_dump($data,$connId);
+        if (array_key_exists($connId, $this->subscribed)) {
 
             unset($this->subscribed[$connId]);
         }
@@ -91,5 +92,10 @@ class WebSocket implements MessageComponentInterface
             'subscribeRoomId' => $data['subscribeRoomId'],
             'subscribeAuthorId' => $data['subscribeAuthorId']
         ];
+    }
+
+    public function getSubscribe(): array
+    {
+        return $this->subscribed;
     }
 }

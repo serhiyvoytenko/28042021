@@ -22,17 +22,31 @@
                 time: Math.floor(new Date().getTime() / 1000),
                 options: options
             });
-            console.log(message);
+            // console.log(message);
             webSocket.send(message);
 
             input.val('');
         },
+        sendSubscribe: function (e){
+            e.stopPropagation();
+            e.preventDefault();
+
+            let subscribe = JSON.stringify({
+                subscribeAuthorId: options.authorId,
+                subscribeRoomId: options.roomId
+            });
+            webSocket.onopen = () => webSocket.send(subscribe);
+            // webSocket.send(subscribe);
+            console.log(subscribe);
+        },
         acceptMessage: function (e) {
+
             let message = JSON.parse(e.data);
-            // console.log(message);
+            console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
             let isMyRoom = message['room_id'] === options.roomId;
             if (true) {
+
                 let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
                 methods.drawMessage(html);
@@ -142,12 +156,7 @@
                     methods.scrollMessages();
                 }
             });
-            let subscribe = JSON.stringify({
-                subscribeAuthorId: options.authorId,
-                subscribeRoomId: options.roomId
-            });
-            console.log(subscribe);
-            webSocket.onopen = () => webSocket.send(subscribe);
+            methods.sendSubscribe(e);
         }
     };
 
