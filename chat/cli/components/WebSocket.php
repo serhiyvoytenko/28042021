@@ -25,7 +25,6 @@ class WebSocket implements MessageComponentInterface
      */
     public function onOpen(ConnectionInterface $conn): void
     {
-//        var_dump($conn->httpRequest->getRequestTarget());
         $this->clients->attach($conn);
         echo "New connect! {$conn->resourceId}\n";
     }
@@ -71,7 +70,6 @@ class WebSocket implements MessageComponentInterface
                 if (isset($this->subscribed[$client->resourceId]['subscribeRoomId']) &&
                     $this->subscribed[$client->resourceId]['subscribeRoomId'] === $message->room_id) {
 
-                    var_dump($client->resourceId);
                     $messages = $message->toArray();
                     $fullMessage = array_merge($user, $messages);
                     $client->send(json_encode($fullMessage));
