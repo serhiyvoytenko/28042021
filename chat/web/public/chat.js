@@ -59,7 +59,6 @@
             let message = JSON.parse(e.data);
             console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
-            let isMyRoom = message['room_id'] === options.roomId;
 
             let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
