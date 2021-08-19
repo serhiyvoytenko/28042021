@@ -1,5 +1,7 @@
 (function ($) {
     const WS_ADDRESS = 'ws://ws.skillup.local:3000/chat';
+    const TYPE_SUBSCRIBE = 'subscribe';
+    const TYPE_MESSAGE = 'message';
 
     let layout;
     let webSocket;
@@ -8,57 +10,69 @@
         roomId: null
     };
 
+    let messagesHeight = 0;
+
     let methods = {
         initConnection: function () {
             webSocket = new WebSocket(WS_ADDRESS);
         },
+
+        subscribe: function () {
+            let subscribe = JSON.stringify({
+                    type: TYPE_SUBSCRIBE,
+                    data: {
+                        options: options
+                    }
+                }
+            );
+            let setIntervalId = setInterval(
+                () => {
+                    if (webSocket.readyState === 1) {
+                        webSocket.send(subscribe);
+                        clearInterval(setIntervalId);
+                    }
+
+                }, 10
+            );
+        },
+
         sendMessage: function (e) {
             e.stopPropagation();
             e.preventDefault();
 
             let input = $(this).siblings('input');
             let message = JSON.stringify({
-                text: input.val(),
-                time: Math.floor(new Date().getTime() / 1000),
-                options: options
+                type: TYPE_MESSAGE,
+                data: {
+                    text: input.val(),
+                    time: Math.floor(new Date().getTime() / 1000),
+                    options: options
+                }
             });
-            // console.log(message);
             webSocket.send(message);
 
             input.val('');
         },
-        sendSubscribe: function (e){
-            e.stopPropagation();
-            e.preventDefault();
 
-            let subscribe = JSON.stringify({
-                subscribeAuthorId: options.authorId,
-                subscribeRoomId: options.roomId
-            });
-            webSocket.onopen = () => webSocket.send(subscribe);
-            // webSocket.send(subscribe);
-            console.log(subscribe);
-        },
         acceptMessage: function (e) {
 
             let message = JSON.parse(e.data);
             console.log(message);
             let isMyMessage = message['user_id'] === options.authorId;
             let isMyRoom = message['room_id'] === options.roomId;
-            if (true) {
 
-                let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
+            let html = isMyMessage ? methods.renderOutgoingMessage(message) : methods.renderIncomingMessage(message);
 
-                methods.drawMessage(html);
-                methods.scrollMessages();
-            }
+            methods.drawMessage(html);
+            methods.scrollMessages();
         },
         drawMessage: function (html) {
             $('.msg_history').append(html);
+            messagesHeight += html.outerHeight(true);
         },
         scrollMessages: function () {
             let messagesList = $('body').find('.msg_history');
-            messagesList.animate({scrollTop: messagesList.outerHeight()}, 'fast');
+            messagesList.animate({scrollTop: messagesHeight}, 'fast');
         },
         renderIncomingMessage: function (data) {
             return $('<div/>')
@@ -147,6 +161,7 @@
                 contentType: 'json',
                 success: function (data) {
                     let messages = JSON.parse(data);
+                    messagesHeight = 0;
                     $.each(messages, function (i, message) {
                         let html = parseInt(message['user_id']) === options.authorId
                             ? methods.renderOutgoingMessage(message)
@@ -156,7 +171,7 @@
                     methods.scrollMessages();
                 }
             });
-            methods.sendSubscribe(e);
+            methods.subscribe();
         }
     };
 
