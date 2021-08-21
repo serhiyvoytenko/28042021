@@ -20,9 +20,7 @@
         subscribe: function () {
             let subscribe = JSON.stringify({
                     type: TYPE_SUBSCRIBE,
-                    data: {
-                        options: options
-                    }
+                    data: options
                 }
             );
             let setIntervalId = setInterval(
