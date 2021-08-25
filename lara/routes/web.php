@@ -21,7 +21,7 @@ Route::get('/guest', function () {
     return view('guest');
 });
 
-Route::view('/hi', 'HI-HI-HI');
+Route::view('/hi', 'HI');
 
 Route::group(['middleware' => 'guest'], static function () {
     Route::view('register', 'guest.register');
