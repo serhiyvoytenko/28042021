@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GuestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +25,31 @@ Route::get('/guest', function () {
 
 Route::view('/hi', 'HI');
 
-Route::group(['middleware' => 'guest'], static function () {
-    Route::view('register', 'guest.register');
+//Route::group(['middleware' => 'guest'], static function () {
+//    Route::get('register', fn() => view('guest.register'));
+//    Route::get('login', [
+//        'as' => 'login',
+//        'uses' => fn() => view('guest.login'),
+//    ]);
+//    Route::post('register', [GuestController::class, 'register']);
+//    Route::post('login', ['as' => 'login', 'uses' => 'App\Http\Controllers\GuestController@login']);
+//});
+//
+
+Route::middleware(['guest'])->group(static function () {
+    Route::get('register', fn() => view('guest.register'));
     Route::get('login', [
         'as' => 'login',
         'uses' => fn() => view('guest.login'),
     ]);
-    Route::post('register', 'App\Http\Controllers\GuestController@register');
+    Route::get('/users/{user}', fn(User $user)=>$user->email);
+    Route::post('register', [GuestController::class, 'register']);
     Route::post('login', ['as' => 'login', 'uses' => 'App\Http\Controllers\GuestController@login']);
 });
+
+Route::group(['middleware' => 'auth'], static function () {
+    Route::get('', 'App\Http\Controllers\IndexController@index');
+    Route::get('logout', 'App\Http\Controllers\UserController@logout');
+//    Route::post('import.excel', 'App\Http\Controllers\ExcelController@import')->name('import.excel');
+});
+
