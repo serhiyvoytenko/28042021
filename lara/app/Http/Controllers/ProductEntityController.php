@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductEntity;
+use App\Models\Entities\ProductEntity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+
+/**
+ * @mixin Builder
+ */
 
 class ProductEntityController extends Controller
 {
@@ -12,9 +17,11 @@ class ProductEntityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): void
     {
-        //
+        $product = ProductEntity::where('id',5)->get();
+        $product2 = ProductEntity::where('id', 5)->first();
+        var_dump($product, $product2);exit();
     }
 
     /**
@@ -41,7 +48,7 @@ class ProductEntityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductEntity  $productEntity
+     * @param  \App\Models\Entities\ProductEntity  $productEntity
      * @return \Illuminate\Http\Response
      */
     public function show(ProductEntity $productEntity)
@@ -52,7 +59,7 @@ class ProductEntityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductEntity  $productEntity
+     * @param  \App\Models\Entities\ProductEntity  $productEntity
      * @return \Illuminate\Http\Response
      */
     public function edit(ProductEntity $productEntity)
@@ -64,7 +71,7 @@ class ProductEntityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductEntity  $productEntity
+     * @param  \App\Models\Entities\ProductEntity  $productEntity
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ProductEntity $productEntity)
@@ -75,7 +82,7 @@ class ProductEntityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductEntity  $productEntity
+     * @param  \App\Models\Entities\ProductEntity  $productEntity
      * @return \Illuminate\Http\Response
      */
     public function destroy(ProductEntity $productEntity)

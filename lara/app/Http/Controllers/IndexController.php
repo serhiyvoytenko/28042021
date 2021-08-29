@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductEntity;
+use App\Models\Entities\ProductEntity;
 
 class IndexController extends Controller
 {

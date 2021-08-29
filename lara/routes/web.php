@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductEntityController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
@@ -49,6 +50,7 @@ Route::middleware(['guest'])->group(static function () {
 
 Route::group(['middleware' => 'auth'], static function () {
     Route::get('', 'App\Http\Controllers\IndexController@index');
+    Route::get('view-products',[ProductEntityController::class, 'index']);
     Route::get('logout', 'App\Http\Controllers\UserController@logout');
 //    Route::post('import.excel', 'App\Http\Controllers\ExcelController@import')->name('import.excel');
 });

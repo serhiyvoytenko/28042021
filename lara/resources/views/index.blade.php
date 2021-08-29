@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col col-8">
+        <div class="col col-9">
             <div class="">Products</div>
             <table class="table table-striped">
                 <tr>
