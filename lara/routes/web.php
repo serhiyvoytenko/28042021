@@ -16,15 +16,15 @@ use App\Http\Controllers\GuestController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/guest', function () {
-    return view('guest');
-});
-
-Route::view('/hi', 'HI');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//
+//Route::get('/guest', function () {
+//    return view('guest');
+//});
+//
+//Route::view('/hi', 'HI');
 
 //Route::group(['middleware' => 'guest'], static function () {
 //    Route::get('register', fn() => view('guest.register'));

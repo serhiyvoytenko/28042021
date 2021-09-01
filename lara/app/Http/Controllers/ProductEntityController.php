@@ -21,7 +21,8 @@ class ProductEntityController extends Controller
     {
         $product = ProductEntity::where('id',5)->get();
         $product2 = ProductEntity::where('id', 5)->first();
-        var_dump($product, $product2);exit();
+        $product3 = ProductEntity::findOrFail(1321321);
+        var_dump($product3);exit();
     }
 
     /**
