@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entities\ProductEntity;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 /**
  * @mixin Builder
  */
-
 class ProductEntityController extends Controller
 {
     /**
@@ -19,10 +19,11 @@ class ProductEntityController extends Controller
      */
     public function index(): void
     {
-        $product = ProductEntity::where('id',5)->get();
+        $product = ProductEntity::where('id', 5)->get();
         $product2 = ProductEntity::where('id', 5)->first();
         $product3 = ProductEntity::findOrFail(1321321);
-        var_dump($product3);exit();
+        var_dump($product3);
+        exit();
     }
 
     /**
@@ -38,7 +39,7 @@ class ProductEntityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +50,7 @@ class ProductEntityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Entities\ProductEntity  $productEntity
+     * @param \App\Models\Entities\ProductEntity $productEntity
      * @return \Illuminate\Http\Response
      */
     public function show(ProductEntity $productEntity)
@@ -60,7 +61,7 @@ class ProductEntityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Entities\ProductEntity  $productEntity
+     * @param \App\Models\Entities\ProductEntity $productEntity
      * @return \Illuminate\Http\Response
      */
     public function edit(ProductEntity $productEntity)
@@ -71,8 +72,8 @@ class ProductEntityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Entities\ProductEntity  $productEntity
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Entities\ProductEntity $productEntity
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ProductEntity $productEntity)
@@ -83,11 +84,19 @@ class ProductEntityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Entities\ProductEntity  $productEntity
+     * @param \App\Models\Entities\ProductEntity $productEntity
      * @return \Illuminate\Http\Response
      */
     public function destroy(ProductEntity $productEntity)
     {
         //
+    }
+
+    public function hi()
+    {
+        $phone = User::find(1)?->phone();
+//        $phone->get();
+        var_dump($phone);exit();
+        return view('HI', ['phone'=>$phone]);
     }
 }
