@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entities\ProductEntity;
+use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -94,9 +95,10 @@ class ProductEntityController extends Controller
 
     public function hi()
     {
-        $phone = User::find(1)?->phone();
-//        $phone->get();
-        var_dump($phone);exit();
+        $phone = User::find(1)?->phone()->getResults();
+        $user = Phone::find(3)->users()->getResults();
+
+        var_dump($phone, $user);exit();
         return view('HI', ['phone'=>$phone]);
     }
 }

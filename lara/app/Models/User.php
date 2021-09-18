@@ -74,6 +74,6 @@ class User extends Authenticatable
 
     public function phone(): HasOne
     {
-        return $this->hasOne(Phone::class);
+        return $this->hasOne(Phone::class, 'users_id');
     }
 }
