@@ -96,9 +96,9 @@ class ProductEntityController extends Controller
     public function hi()
     {
         $phone = User::find(1)?->phone()->getResults();
-        $user = Phone::find(3)->users()->getResults();
+        $user = Phone::find(3)?->users()->getResults();
 
-        var_dump($phone, $user);exit();
+//        var_dump($phone, $user);exit();
         return view('HI', ['phone'=>$phone]);
     }
 }
