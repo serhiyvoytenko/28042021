@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ProductEntityController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::get('', 'App\Http\Controllers\IndexController@index');
     Route::get('view-products',[ProductEntityController::class, 'index']);
     Route::get('hi',[ProductEntityController::class, 'hi']);
+    Route::get('addPhone',[PhoneController::class, 'addPhone']);
     Route::get('logout', 'App\Http\Controllers\UserController@logout');
 //    Route::post('import.excel', 'App\Http\Controllers\ExcelController@import')->name('import.excel');
 });

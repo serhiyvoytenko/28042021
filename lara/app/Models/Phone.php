@@ -32,8 +32,9 @@ class Phone extends Model
     use HasFactory;
 
     protected array $fillable = [
-      'model',
-      'users_id',
+        'model',
+        'users_id',
+        'number',
     ];
 
     public function users()
