@@ -30,73 +30,74 @@ class ProductEntityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function create()
-    {
-        //
-    }
+//    public function create()
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Store a newly created resource in storage.
+//     *
+//     * @param \Illuminate\Http\Request $request
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function store(Request $request)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Display the specified resource.
+//     *
+//     * @param \App\Models\Entities\ProductEntity $productEntity
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function show(ProductEntity $productEntity)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Show the form for editing the specified resource.
+//     *
+//     * @param \App\Models\Entities\ProductEntity $productEntity
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function edit(ProductEntity $productEntity)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param \Illuminate\Http\Request $request
+//     * @param \App\Models\Entities\ProductEntity $productEntity
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function update(Request $request, ProductEntity $productEntity)
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Remove the specified resource from storage.
+//     *
+//     * @param \App\Models\Entities\ProductEntity $productEntity
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function destroy(ProductEntity $productEntity)
+//    {
+//        //
+//    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Entities\ProductEntity $productEntity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProductEntity $productEntity)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Entities\ProductEntity $productEntity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductEntity $productEntity)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Entities\ProductEntity $productEntity
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductEntity $productEntity)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Entities\ProductEntity $productEntity
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductEntity $productEntity)
-    {
-        //
-    }
-
-    public function hi()
+    public function hi(): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $phone = User::find(1)?->phone()->getResults();
         $user = Phone::find(3)?->users()->getResults();
+//        $user = Phone::find(3)?->users()->getResults();
 
 //        var_dump($phone, $user);exit();
         return view('HI', ['phone'=>$phone]);
